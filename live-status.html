@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Status – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .live-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 24px;
+    }
+    .live-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #dcfce7; color: #166534;
+      padding: 6px 16px; border-radius: 999px;
+      font-size: .82rem; font-weight: 700;
+    }
+    .live-tag .dot {
+      width: 8px; height: 8px; background: #22c55e;
+      border-radius: 50%; animation: pulse 1.5s infinite;
+    }
+    .update-time { font-size: .8rem; color: var(--gray); }
+    .summary-bar {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 32px;
+    }
+    .sum-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px;
+      text-align: center;
+    }
+    .sum-card .num {
+      font-family: 'Syne', sans-serif; font-size: 2rem;
+      font-weight: 800; color: var(--orange);
+    }
+    .sum-card .lbl { font-size: .8rem; color: var(--gray); }
+    .map-placeholder {
+      background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+      border-radius: var(--radius-lg); height: 280px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      border: 2px dashed #c8e6c9;
+      font-size: 3rem; margin-bottom: 12px;
+      color: var(--gray);
+      position: relative; overflow: hidden;
+    }
+    .moving-bus {
+      position: absolute;
+      font-size: 1.6rem;
+      animation: moveBus 6s linear infinite;
+    }
+    .moving-train {
+      position: absolute;
+      font-size: 1.6rem;
+      animation: moveTrain 8s linear infinite;
+      top: 60%;
+    }
+    .moving-plane {
+      position: absolute;
+      font-size: 1.4rem;
+      animation: movePlane 10s linear infinite;
+      top: 20%;
+    }
+    @keyframes moveBus   { from { left:-60px; } to { left:110%; } }
+    @keyframes moveTrain { from { left:-60px; } to { left:110%; } }
+    @keyframes movePlane { from { left:-60px; } to { left:110%; } }
+    .crowd-section { margin-bottom: 28px; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html" class="active">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="dashboard.html" class="btn btn-outline btn-sm">Login</a>
+    <a href="bus.html" class="btn btn-primary btn-sm">Book Now</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="badge badge-orange">Live Dashboard</span>
+    <h1>📡 Real-Time Travel Status</h1>
+    <p>Live bus locations, train running status, flight updates, and crowd predictions — updated every 30 seconds.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Live header bar -->
+    <div class="live-header fade-in">
+      <div class="live-tag">
+        <span class="dot"></span> LIVE — Updating every 30s
+      </div>
+      <span class="update-time" id="last-updated">Last updated: Just now</span>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="summary-bar fade-in">
+      <div class="sum-card">
+        <div class="num">847</div>
+        <div class="lbl">Active Buses</div>
+      </div>
+      <div class="sum-card">
+        <div class="num">214</div>
+        <div class="lbl">Trains Running</div>
+      </div>
+      <div class="sum-card">
+        <div class="num">156</div>
+        <div class="lbl">Flights in Air</div>
+      </div>
+      <div class="sum-card">
+        <div class="num" style="color:#ef4444;">23</div>
+        <div class="lbl">Active Delays</div>
+      </div>
+    </div>
+
+    <!-- Animated Map Placeholder -->
+    <div class="map-placeholder fade-in">
+      <div class="moving-bus">🚌</div>
+      <div class="moving-train" style="animation-delay:-3s;">🚆</div>
+      <div class="moving-plane" style="animation-delay:-5s;">✈️</div>
+      <div style="text-align:center;z-index:1;">
+        <div style="font-size:1rem;color:var(--gray);font-weight:600;">🗺️ Live Transport Map</div>
+        <div style="font-size:.82rem;margin-top:6px;">Animated vehicles represent real-time positions across the city</div>
+      </div>
+    </div>
+    <p style="font-size:.78rem;color:var(--gray);text-align:center;margin-bottom:32px;">
+      ↑ Live simulation — actual GPS-based map available in the full app
+    </p>
+
+    <!-- BUS STATUS -->
+    <div class="fade-in" style="margin-bottom:40px;">
+      <h2 style="margin-bottom:18px;">🚌 Bus Live Status</h2>
+      <div class="status-grid">
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>Route 157 – Kothrud → Shivajinagar</strong>
+            <span class="status-badge live"><span class="status-dot green"></span>En Route</span>
+          </div>
+          <p style="font-size:.85rem;margin-bottom:8px;">Bus No: MH-12-AB-5621</p>
+          <p style="font-size:.85rem;margin-bottom:12px;">Next Stop: FC Road | ETA: <strong class="live-time" data-offset="5">5 min</strong></p>
+          <div class="crowd-section">
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--gray);margin-bottom:4px;">
+              <span>Crowd Level</span><span style="color:#f59e0b;font-weight:600;">Medium</span>
+            </div>
+            <div class="crowd-bar"><div class="crowd-fill medium"></div></div>
+          </div>
+        </div>
+
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>Route 223 – Hinjewadi → Wakad</strong>
+            <span class="status-badge live"><span class="status-dot green"></span>En Route</span>
+          </div>
+          <p style="font-size:.85rem;margin-bottom:8px;">Bus No: MH-12-CD-3344</p>
+          <p style="font-size:.85rem;margin-bottom:12px;">Next Stop: Baner Rd | ETA: <strong>12 min</strong></p>
+          <div class="crowd-section">
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--gray);margin-bottom:4px;">
+              <span>Crowd Level</span><span style="color:#22c55e;font-weight:600;">Low</span>
+            </div>
+            <div class="crowd-bar"><div class="crowd-fill low"></div></div>
+          </div>
+        </div>
+
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>Route 84 – Katraj → Deccan</strong>
+            <span class="status-badge delayed"><span class="status-dot red"></span>Delayed</span>
+          </div>
+          <p style="font-size:.85rem;margin-bottom:8px;">Bus No: MH-12-GH-7890</p>
+          <p style="font-size:.85rem;margin-bottom:12px;">Delay: <strong style="color:#ef4444;">~20 min</strong> (Traffic on Sinhagad Rd)</p>
+          <div class="crowd-section">
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--gray);margin-bottom:4px;">
+              <span>Crowd Level</span><span style="color:#ef4444;font-weight:600;">High</span>
+            </div>
+            <div class="crowd-bar"><div class="crowd-fill high"></div></div>
+          </div>
+        </div>
+
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>Route 11 – Khadki → Swargate</strong>
+            <span class="status-badge live"><span class="status-dot green"></span>On Schedule</span>
+          </div>
+          <p style="font-size:.85rem;margin-bottom:8px;">Bus No: MH-12-EF-1122</p>
+          <p style="font-size:.85rem;margin-bottom:12px;">Next Stop: Shivajinagar | ETA: <strong>3 min</strong></p>
+          <div class="crowd-section">
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--gray);margin-bottom:4px;">
+              <span>Crowd Level</span><span style="color:#f59e0b;font-weight:600;">Medium</span>
+            </div>
+            <div class="crowd-bar"><div class="crowd-fill medium"></div></div>
+          </div>
+        </div>
+
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>Route 99 – Airport → Viman Nagar</strong>
+            <span class="status-badge live"><span class="status-dot green"></span>En Route</span>
+          </div>
+          <p style="font-size:.85rem;margin-bottom:8px;">Bus No: MH-12-KL-9988</p>
+          <p style="font-size:.85rem;margin-bottom:12px;">Next Stop: Kalyani Nagar | ETA: <strong>8 min</strong></p>
+          <div class="crowd-section">
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--gray);margin-bottom:4px;">
+              <span>Crowd Level</span><span style="color:#22c55e;font-weight:600;">Low</span>
+            </div>
+            <div class="crowd-bar"><div class="crowd-fill low"></div></div>
+          </div>
+        </div>
+
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>Route 55 – Hadapsar → Camp</strong>
+            <span class="status-badge delayed"><span class="status-dot red"></span>Delayed</span>
+          </div>
+          <p style="font-size:.85rem;margin-bottom:8px;">Bus No: MH-12-MN-6677</p>
+          <p style="font-size:.85rem;margin-bottom:12px;">Delay: <strong style="color:#ef4444;">~35 min</strong> (Road work)</p>
+          <div class="crowd-section">
+            <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--gray);margin-bottom:4px;">
+              <span>Crowd Level</span><span style="color:#ef4444;font-weight:600;">High</span>
+            </div>
+            <div class="crowd-bar"><div class="crowd-fill high"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAIN STATUS -->
+    <div class="fade-in" style="margin-bottom:40px;">
+      <h2 style="margin-bottom:18px;">🚆 Train Running Status</h2>
+      <div class="status-grid">
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>12127 Intercity Express</strong>
+            <span class="status-badge live"><span class="status-dot green"></span>On Time</span>
+          </div>
+          <p style="font-size:.85rem;">Mumbai CSMT → Pune | Departed: 06:05</p>
+          <p style="font-size:.85rem;margin-top:4px;">Current: Near Karjat | ETA Pune: <strong class="live-time" data-offset="45">9:30 AM</strong></p>
+          <p style="font-size:.78rem;color:var(--gray);margin-top:8px;">Platform 3 | 12 coaches</p>
+        </div>
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>12701 Hussainsagar Exp</strong>
+            <span class="status-badge delayed"><span class="status-dot red"></span>Delayed 15 min</span>
+          </div>
+          <p style="font-size:.85rem;">Mumbai → Hyderabad | Departed: 07:30</p>
+          <p style="font-size:.85rem;margin-top:4px;">Current: Lonavala | Due at Pune: <strong style="color:#ef4444;">11:45 AM</strong></p>
+          <p style="font-size:.78rem;color:var(--gray);margin-top:8px;">Platform 6 | Signal delay</p>
+        </div>
+        <div class="status-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <strong>11301 Udayan Express</strong>
+            <span class="status-badge scheduled"><span class="status-dot blue"></span>On Schedule</span>
+          </div>
+          <p style="font-size:.85rem;">Mumbai LTT → Pune | Departs: 09:50</p>
+          <p style="font-size:.85rem;margin-top:4px;">Status: Awaiting Departure from Platform 8</p>
+          <p style="font-size:.78rem;color:var(--gray);margin-top:8px;">Platform 8 | 18 coaches</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FLIGHT DEPARTURE BOARD -->
+    <div class="fade-in">
+      <h2 style="margin-bottom:18px;">✈️ Flight Departure Board – Mumbai (BOM)</h2>
+      <div class="card" style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:.9rem;">
+          <thead>
+            <tr style="background:var(--gray-light);">
+              <th style="padding:12px 16px;text-align:left;font-family:'Syne',sans-serif;">Flight</th>
+              <th style="padding:12px 16px;text-align:left;">Destination</th>
+              <th style="padding:12px 16px;text-align:left;">Scheduled</th>
+              <th style="padding:12px 16px;text-align:left;">Status</th>
+              <th style="padding:12px 16px;text-align:left;">Terminal</th>
+              <th style="padding:12px 16px;text-align:left;">Gate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:12px 16px;font-weight:700;">6E-2341</td>
+              <td style="padding:12px 16px;">Delhi (DEL)</td>
+              <td style="padding:12px 16px;font-family:'Syne',sans-serif;font-weight:700;">06:10</td>
+              <td style="padding:12px 16px;"><span class="status-badge live"><span class="status-dot green"></span>Departed</span></td>
+              <td style="padding:12px 16px;">T2</td><td style="padding:12px 16px;">B14</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:12px 16px;font-weight:700;">SG-118</td>
+              <td style="padding:12px 16px;">Delhi (DEL)</td>
+              <td style="padding:12px 16px;font-family:'Syne',sans-serif;font-weight:700;">08:30</td>
+              <td style="padding:12px 16px;"><span class="status-badge live"><span class="status-dot green"></span>Boarding</span></td>
+              <td style="padding:12px 16px;">T1</td><td style="padding:12px 16px;">A6</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:12px 16px;font-weight:700;">AI-865</td>
+              <td style="padding:12px 16px;">Delhi (DEL)</td>
+              <td style="padding:12px 16px;font-family:'Syne',sans-serif;font-weight:700;">10:15</td>
+              <td style="padding:12px 16px;"><span class="status-badge scheduled"><span class="status-dot blue"></span>On Time</span></td>
+              <td style="padding:12px 16px;">T2</td><td style="padding:12px 16px;">C22</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:12px 16px;font-weight:700;">UK-993</td>
+              <td style="padding:12px 16px;">Delhi (DEL)</td>
+              <td style="padding:12px 16px;font-family:'Syne',sans-serif;font-weight:700;">14:45</td>
+              <td style="padding:12px 16px;"><span class="status-badge scheduled"><span class="status-dot blue"></span>Scheduled</span></td>
+              <td style="padding:12px 16px;">T2</td><td style="padding:12px 16px;">B8</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:12px 16px;font-weight:700;">EK-503</td>
+              <td style="padding:12px 16px;">Dubai (DXB)</td>
+              <td style="padding:12px 16px;font-family:'Syne',sans-serif;font-weight:700;">03:05</td>
+              <td style="padding:12px 16px;"><span class="status-badge delayed"><span class="status-dot red"></span>Delayed 40m</span></td>
+              <td style="padding:12px 16px;">T2</td><td style="padding:12px 16px;">D3</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;font-weight:700;">9W-556</td>
+              <td style="padding:12px 16px;">Bengaluru (BLR)</td>
+              <td style="padding:12px 16px;font-family:'Syne',sans-serif;font-weight:700;">12:20</td>
+              <td style="padding:12px 16px;"><span class="status-badge live"><span class="status-dot green"></span>On Time</span></td>
+              <td style="padding:12px 16px;">T1</td><td style="padding:12px 16px;">A12</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Real-time travel intelligence, powered by TripVerse.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li><li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Account</h4><ul>
+        <li><a href="dashboard.html">Dashboard</a></li><li><a href="refund.html">Refunds</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li><li><a href="support.html">Support</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Update "last updated" timestamp
+  function updateTimestamp() {
+    const el = document.getElementById('last-updated');
+    if (el) el.textContent = 'Last updated: ' + new Date().toLocaleTimeString('en-IN');
+  }
+  setInterval(updateTimestamp, 30000);
+  updateTimestamp();
+</script>
+</body>
+</html>

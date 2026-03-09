@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Explorer – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Explorer-specific styles ── */
+    .explorer-hero {
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 60%, #2d1a0a 100%);
+      padding: 90px 0 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .explorer-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(255,92,0,.18) 0%, transparent 65%);
+    }
+    .explorer-hero h1 { color: #fff; margin-bottom: 14px; }
+    .explorer-hero p  { color: rgba(255,255,255,.65); font-size: 1.1rem; max-width: 580px; margin: 0 auto 36px; }
+
+    /* Search bar */
+    .dest-search {
+      display: flex;
+      gap: 10px;
+      max-width: 560px;
+      margin: 0 auto;
+      background: rgba(255,255,255,.08);
+      border: 1.5px solid rgba(255,255,255,.15);
+      border-radius: 14px;
+      padding: 8px 8px 8px 20px;
+      backdrop-filter: blur(10px);
+    }
+    .dest-search input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+    }
+    .dest-search input::placeholder { color: rgba(255,255,255,.4); }
+
+    /* Category filter pills */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .filter-pill {
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: .85rem;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-pill:hover,
+    .filter-pill.active {
+      background: var(--orange);
+      color: #fff;
+      border-color: var(--orange);
+    }
+
+    /* Destination card */
+    .dest-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--white);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .dest-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--orange);
+    }
+    .dest-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .dest-img .dest-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+    .dest-img .best-time-badge {
+      position: absolute;
+      bottom: 12px; right: 12px;
+      background: rgba(255,92,0,.9);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .dest-body { padding: 20px; }
+    .dest-location {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .78rem;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .dest-body h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .dest-body p  { font-size: .85rem; margin-bottom: 16px; line-height: 1.55; }
+    .dest-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .dest-rating { font-size: .82rem; color: var(--gray); }
+    .dest-rating span { color: var(--orange); font-weight: 700; }
+
+    /* Category section header */
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .cat-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--orange-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .cat-header h2 { font-size: 1.5rem; margin: 0; }
+
+    /* Gradient backgrounds per category */
+    .bg-mountains { background: linear-gradient(135deg,#e0f2fe,#bae6fd); }
+    .bg-beach     { background: linear-gradient(135deg,#d1fae5,#a7f3d0); }
+    .bg-heritage  { background: linear-gradient(135deg,#fef3c7,#fde68a); }
+    .bg-spiritual { background: linear-gradient(135deg,#ede9fe,#ddd6fe); }
+    .bg-adventure { background: linear-gradient(135deg,#fee2e2,#fecaca); }
+    .bg-nature    { background: linear-gradient(135deg,#d1fae5,#bbf7d0); }
+  </style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html" class="active">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="trip-planner.html" class="btn btn-outline btn-sm">Plan Trip</a>
+    <a href="bus.html" class="btn btn-primary btn-sm">Book Now</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ========== HERO ========== -->
+<div class="explorer-hero">
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="badge badge-orange" style="margin-bottom:16px;">🗺️ Travel Explorer</span>
+    <h1>Discover Your Next<br><em style="color:var(--orange);">Great Adventure</em></h1>
+    <p>Explore handpicked destinations across India — from ancient forts to serene beaches, sacred temples to misty hill stations.</p>
+    <div class="dest-search">
+      <input type="text" id="dest-search-input" placeholder="Search destinations, states, or experiences…" />
+      <button class="btn btn-primary" onclick="filterDestinations()">Search 🔍</button>
+    </div>
+    <div style="margin-top:20px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap;">
+      <div style="color:rgba(255,255,255,.7);font-size:.85rem;"><strong style="color:#fff;font-size:1.2rem;">500+</strong><br>Destinations</div>
+      <div style="color:rgba(255,255,255,.7);font-size:.85rem;"><strong style="color:#fff;font-size:1.2rem;">28</strong><br>States</div>
+      <div style="color:rgba(255,255,255,.7);font-size:.85rem;"><strong style="color:#fff;font-size:1.2rem;">12K+</strong><br>Traveler Reviews</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FILTER BAR ========== -->
+<section class="section-sm">
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-pill active" data-filter="all">✨ All</button>
+      <button class="filter-pill" data-filter="popular">🔥 Popular</button>
+      <button class="filter-pill" data-filter="heritage">🏛️ Historical</button>
+      <button class="filter-pill" data-filter="hills">⛰️ Hill Stations</button>
+      <button class="filter-pill" data-filter="beach">🏖️ Beaches</button>
+      <button class="filter-pill" data-filter="spiritual">🙏 Spiritual</button>
+      <button class="filter-pill" data-filter="adventure">🧗 Adventure</button>
+      <button class="filter-pill" data-filter="nature">🌿 Nature</button>
+    </div>
+
+    <!-- ── POPULAR IN INDIA ── -->
+    <div class="section-block fade-in" style="margin-bottom:64px;" data-category="popular">
+      <div class="cat-header">
+        <div class="cat-icon">🔥</div>
+        <div>
+          <h2>Popular Places in India</h2>
+          <p style="font-size:.85rem;color:var(--gray);margin:0;">Most visited destinations this season</p>
+        </div>
+      </div>
+      <div class="grid-4" id="popular-grid">
+        <!-- Taj Mahal -->
+        <div class="dest-card" data-tags="popular heritage">
+          <div class="dest-img bg-heritage">
+            🕌
+            <span class="dest-badge">UNESCO Heritage</span>
+            <span class="best-time-badge">Oct – Mar</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Agra, Uttar Pradesh</div>
+            <h3>Taj Mahal</h3>
+            <p>An ivory-white marble mausoleum and one of the Seven Wonders of the World. Built by Emperor Shah Jahan in memory of his wife Mumtaz Mahal.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.9</span> / 5</div>
+              <a href="trip-planner.html?dest=Taj+Mahal" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Mysore Palace -->
+        <div class="dest-card" data-tags="popular heritage">
+          <div class="dest-img bg-mountains" style="background:linear-gradient(135deg,#fff7ed,#fed7aa);">
+            🏯
+            <span class="dest-badge">Royal Heritage</span>
+            <span class="best-time-badge">Oct – Feb</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Mysore, Karnataka</div>
+            <h3>Mysore Palace</h3>
+            <p>One of the most visited monuments in India, this magnificent palace is the seat of the Wadiyar dynasty, illuminated by 100,000 bulbs on weekends.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.8</span> / 5</div>
+              <a href="trip-planner.html?dest=Mysore+Palace" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Lonavala -->
+        <div class="dest-card" data-tags="popular hills nature">
+          <div class="dest-img bg-nature">
+            🌄
+            <span class="dest-badge">Hill Station</span>
+            <span class="best-time-badge">Jun – Sep</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Pune District, Maharashtra</div>
+            <h3>Lonavala</h3>
+            <p>A charming hill station nestled in the Sahyadri ranges, famous for its misty valleys, Bhushi Dam, Tiger's Leap viewpoint, and legendary chikki.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.7</span> / 5</div>
+              <a href="trip-planner.html?dest=Lonavala" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Meenakshi Temple -->
+        <div class="dest-card" data-tags="popular spiritual">
+          <div class="dest-img bg-spiritual">
+            🛕
+            <span class="dest-badge">Ancient Temple</span>
+            <span class="best-time-badge">Nov – Mar</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Madurai, Tamil Nadu</div>
+            <h3>Meenakshi Temple</h3>
+            <p>A historic Hindu temple with towering 14 gopurams adorned with thousands of colorful sculptures. One of the finest examples of Dravidian architecture.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.9</span> / 5</div>
+              <a href="trip-planner.html?dest=Meenakshi+Temple" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HISTORICAL & FORTS ── -->
+    <div class="section-block fade-in" style="margin-bottom:64px;" data-category="heritage">
+      <div class="cat-header">
+        <div class="cat-icon">🏛️</div>
+        <div>
+          <h2>Historical Sites & Forts</h2>
+          <p style="font-size:.85rem;color:var(--gray);margin:0;">Walk through centuries of Indian history</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <!-- Ellora Caves -->
+        <div class="dest-card" data-tags="heritage popular">
+          <div class="dest-img bg-heritage">
+            🗿
+            <span class="dest-badge">UNESCO World Heritage</span>
+            <span class="best-time-badge">Nov – Mar</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Aurangabad, Maharashtra</div>
+            <h3>Ellora Caves</h3>
+            <p>Rock-cut cave temples dating back to 600–1000 CE representing Buddhist, Hindu and Jain monuments. Home to the magnificent Kailasa Temple carved from a single rock.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.9</span> / 5</div>
+              <a href="trip-planner.html?dest=Ellora+Caves" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Raigad Fort -->
+        <div class="dest-card" data-tags="heritage adventure">
+          <div class="dest-img" style="background:linear-gradient(135deg,#f0fdf4,#bbf7d0);">
+            🏰
+            <span class="dest-badge">Maratha Capital</span>
+            <span class="best-time-badge">Oct – Feb</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Raigad District, Maharashtra</div>
+            <h3>Raigad Fort</h3>
+            <p>The majestic capital of the Maratha Empire under Chhatrapati Shivaji Maharaj. Perched at 820m, accessible by ropeway with breathtaking Sahyadri views.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.8</span> / 5</div>
+              <a href="trip-planner.html?dest=Raigad+Fort" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Sinhagad Fort -->
+        <div class="dest-card" data-tags="heritage adventure">
+          <div class="dest-img bg-adventure">
+            ⚔️
+            <span class="dest-badge">Battle of Sinhagad</span>
+            <span class="best-time-badge">Oct – Feb</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Pune, Maharashtra</div>
+            <h3>Sinhagad Fort</h3>
+            <p>A legendary hill fortress with a rich military history, site of the famous 1670 battle. Just 30 km from Pune, famous for its trekking trails and stunning vistas.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.7</span> / 5</div>
+              <a href="trip-planner.html?dest=Sinhagad+Fort" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Mehrangarh Fort -->
+        <div class="dest-card" data-tags="heritage popular">
+          <div class="dest-img" style="background:linear-gradient(135deg,#fff7ed,#fde68a);">
+            🏯
+            <span class="dest-badge">Rajput Architecture</span>
+            <span class="best-time-badge">Oct – Mar</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Jodhpur, Rajasthan</div>
+            <h3>Mehrangarh Fort</h3>
+            <p>One of India's largest forts, rising magnificently 125m above Jodhpur city. Its seven gates, ornate palaces and sweeping desert views are unforgettable.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.9</span> / 5</div>
+              <a href="trip-planner.html?dest=Mehrangarh+Fort" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Amber Fort -->
+        <div class="dest-card" data-tags="heritage popular">
+          <div class="dest-img" style="background:linear-gradient(135deg,#fef9ee,#fde68a);">
+            🌅
+            <span class="dest-badge">UNESCO Heritage</span>
+            <span class="best-time-badge">Oct – Mar</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Jaipur, Rajasthan</div>
+            <h3>Amber Fort</h3>
+            <p>A stunning hilltop fortress built of red sandstone and white marble, known for its ornate Sheesh Mahal (Mirror Palace) and elephant rides to the main gate.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.8</span> / 5</div>
+              <a href="trip-planner.html?dest=Amber+Fort" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+        <!-- Hampi -->
+        <div class="dest-card" data-tags="heritage">
+          <div class="dest-img" style="background:linear-gradient(135deg,#fef3c7,#fcd34d);">
+            🗺️
+            <span class="dest-badge">Vijayanagara Empire</span>
+            <span class="best-time-badge">Nov – Mar</span>
+          </div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Ballari, Karnataka</div>
+            <h3>Hampi</h3>
+            <p>An ancient village scattered with ruins of the once-great Vijayanagara Empire. Boulder-strewn landscapes, ancient temples and bazaars make it a surreal destination.</p>
+            <div class="dest-footer">
+              <div class="dest-rating">⭐ <span>4.8</span> / 5</div>
+              <a href="trip-planner.html?dest=Hampi" class="btn btn-primary btn-sm">Plan Trip →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HILL STATIONS ── -->
+    <div class="section-block fade-in" style="margin-bottom:64px;" data-category="hills">
+      <div class="cat-header">
+        <div class="cat-icon">⛰️</div>
+        <div>
+          <h2>Hill Stations</h2>
+          <p style="font-size:.85rem;color:var(--gray);margin:0;">Escape the heat in India's finest highlands</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="dest-card" data-tags="hills nature">
+          <div class="dest-img bg-mountains">🌁<span class="dest-badge">Queen of Hills</span><span class="best-time-badge">Apr – Jun</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Darjeeling, West Bengal</div>
+            <h3>Darjeeling</h3>
+            <p>Famous for its tea gardens, the Himalayan railway (a UNESCO site), and mesmerizing sunrise views of Kangchenjunga, the world's third-highest peak.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.8</span> / 5</div>
+            <a href="trip-planner.html?dest=Darjeeling" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="hills nature popular">
+          <div class="dest-img" style="background:linear-gradient(135deg,#ecfdf5,#6ee7b7);">🏔️<span class="dest-badge">Nilgiri Hills</span><span class="best-time-badge">Oct – Jun</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 The Nilgiris, Tamil Nadu</div>
+            <h3>Ooty</h3>
+            <p>The "Queen of Hill Stations" with lush tea estates, a botanical garden, boating lake, and the heritage toy train winding through the Nilgiri hills.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.6</span> / 5</div>
+            <a href="trip-planner.html?dest=Ooty" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="hills nature popular">
+          <div class="dest-img" style="background:linear-gradient(135deg,#f0f9ff,#bae6fd);">🌿<span class="dest-badge">Valley of Strawberries</span><span class="best-time-badge">Mar – Jun</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Satara District, Maharashtra</div>
+            <h3>Mahabaleshwar</h3>
+            <p>A picturesque hill station in the Sahyadris known for strawberry farms, multiple panoramic viewpoints, Venna Lake, and cool pleasant weather year-round.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.7</span> / 5</div>
+            <a href="trip-planner.html?dest=Mahabaleshwar" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="hills adventure">
+          <div class="dest-img" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe);">❄️<span class="dest-badge">Snow Destination</span><span class="best-time-badge">Dec – Mar</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Kullu District, Himachal Pradesh</div>
+            <h3>Manali</h3>
+            <p>A high-altitude Himalayan resort famous for snow, adventure sports like paragliding and skiing, the ancient Hadimba Temple, and Solang Valley.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.8</span> / 5</div>
+            <a href="trip-planner.html?dest=Manali" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BEACHES ── -->
+    <div class="section-block fade-in" style="margin-bottom:64px;" data-category="beach">
+      <div class="cat-header">
+        <div class="cat-icon">🏖️</div>
+        <div>
+          <h2>Beaches</h2>
+          <p style="font-size:.85rem;color:var(--gray);margin:0;">Sun, sand, and the sea at India's finest shores</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="dest-card" data-tags="beach popular">
+          <div class="dest-img bg-beach">🌊<span class="dest-badge">Party Capital</span><span class="best-time-badge">Nov – Mar</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Goa</div>
+            <h3>Calangute Beach</h3>
+            <p>India's most popular beach, known as the "Queen of Beaches." Vibrant shacks, water sports, flea markets, and legendary Goan nightlife make it a must-visit.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.5</span> / 5</div>
+            <a href="trip-planner.html?dest=Goa" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="beach nature">
+          <div class="dest-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">🐚<span class="dest-badge">Pristine Waters</span><span class="best-time-badge">Oct – May</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Andaman & Nicobar</div>
+            <h3>Radhanagar Beach</h3>
+            <p>Ranked Asia's best beach multiple times. Crystal clear turquoise water, white powder sand, and a lush forest backdrop create an paradise-like setting.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.9</span> / 5</div>
+            <a href="trip-planner.html?dest=Andaman" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="beach nature">
+          <div class="dest-img" style="background:linear-gradient(135deg,#ecfdf5,#a7f3d0);">🌴<span class="dest-badge">Coastal Paradise</span><span class="best-time-badge">Oct – Mar</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Raigad, Maharashtra</div>
+            <h3>Alibaug</h3>
+            <p>Maharashtra's "Mini Goa" — a breezy coastal town with the historic Kolaba Fort, pristine beaches, water sports, and only 2 hours from Mumbai by ferry.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.6</span> / 5</div>
+            <a href="trip-planner.html?dest=Alibaug" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="beach popular">
+          <div class="dest-img" style="background:linear-gradient(135deg,#fef9ee,#fde68a);">🦀<span class="dest-badge">Coastal Culture</span><span class="best-time-badge">Oct – Mar</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Dakshina Kannada, Karnataka</div>
+            <h3>Mangalore</h3>
+            <p>Gateway to coastal Karnataka with golden beaches, famous seafood, centuries-old temples, and the lush backwaters of the Nethravathi river.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.5</span> / 5</div>
+            <a href="trip-planner.html?dest=Mangalore" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SPIRITUAL ── -->
+    <div class="section-block fade-in" data-category="spiritual">
+      <div class="cat-header">
+        <div class="cat-icon">🙏</div>
+        <div>
+          <h2>Spiritual Places</h2>
+          <p style="font-size:.85rem;color:var(--gray);margin:0;">Sacred sites that nourish the soul</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="dest-card" data-tags="spiritual popular">
+          <div class="dest-img bg-spiritual">🕉️<span class="dest-badge">City of Moksha</span><span class="best-time-badge">Oct – Mar</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Varanasi, Uttar Pradesh</div>
+            <h3>Varanasi (Kashi)</h3>
+            <p>One of the world's oldest living cities. The nightly Ganga Aarti, ancient ghats, and the spiritual energy of this sacred city create a transformative experience.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.8</span> / 5</div>
+            <a href="trip-planner.html?dest=Varanasi" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="spiritual">
+          <div class="dest-img" style="background:linear-gradient(135deg,#fef9ee,#fde68a);">🛕<span class="dest-badge">Jyotirlinga</span><span class="best-time-badge">All Year</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Nashik, Maharashtra</div>
+            <h3>Shirdi & Trimbakeshwar</h3>
+            <p>Home to the sacred Sai Baba shrine at Shirdi and the Trimbakeshwar Jyotirlinga temple, this circuit is one of Maharashtra's most important pilgrimage routes.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.9</span> / 5</div>
+            <a href="trip-planner.html?dest=Shirdi" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="spiritual popular">
+          <div class="dest-img" style="background:linear-gradient(135deg,#ede9fe,#c4b5fd);">🙏<span class="dest-badge">Golden Temple</span><span class="best-time-badge">Oct – Mar</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Amritsar, Punjab</div>
+            <h3>Harmandir Sahib</h3>
+            <p>The holiest shrine of Sikhism, the Golden Temple is a magnificent structure surrounded by the sacred Amrit Sarovar lake, radiating peace and divinity.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>5.0</span> / 5</div>
+            <a href="trip-planner.html?dest=Amritsar" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+        <div class="dest-card" data-tags="spiritual nature">
+          <div class="dest-img" style="background:linear-gradient(135deg,#f0fdf4,#bbf7d0);">🌊<span class="dest-badge">Sacred Confluence</span><span class="best-time-badge">Oct – Feb</span></div>
+          <div class="dest-body">
+            <div class="dest-location">📍 Prayagraj, Uttar Pradesh</div>
+            <h3>Triveni Sangam</h3>
+            <p>The holy confluence of the Ganga, Yamuna, and mythical Saraswati rivers. Site of the world's largest human gathering, the Maha Kumbh Mela.</p>
+            <div class="dest-footer"><div class="dest-rating">⭐ <span>4.7</span> / 5</div>
+            <a href="trip-planner.html?dest=Prayagraj" class="btn btn-primary btn-sm">Plan Trip →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PLAN YOUR TRIP CTA ── -->
+<section class="section-sm" style="background:var(--dark);">
+  <div class="container text-center">
+    <h2 style="color:#fff;margin-bottom:12px;">Found Your Dream Destination?</h2>
+    <p style="color:rgba(255,255,255,.6);margin-bottom:28px;">Use TripVerse Trip Planner to build a complete itinerary in minutes.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="trip-planner.html" class="btn btn-primary btn-lg">🗓️ Start Planning →</a>
+      <a href="world-destinations.html" class="btn btn-lg" style="border:2px solid rgba(255,255,255,.3);color:white;">🌍 Explore World Destinations</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Discover India's finest destinations and plan the perfect journey.</p>
+      </div>
+      <div class="footer-col"><h4>Discover</h4><ul>
+        <li><a href="travel-explorer.html">Travel Explorer</a></li>
+        <li><a href="world-destinations.html">World Destinations</a></li>
+        <li><a href="travel-suggestions.html">Suggestions</a></li>
+        <li><a href="trip-planner.html">Trip Planner</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Book Travel</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li>
+        <li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+/* ── Filter pills ── */
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    const filter = pill.dataset.filter;
+    document.querySelectorAll('.dest-card').forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      card.style.display = (filter === 'all' || tags.includes(filter)) ? '' : 'none';
+    });
+  });
+});
+
+/* ── Search ── */
+function filterDestinations() {
+  const q = document.getElementById('dest-search-input').value.toLowerCase().trim();
+  if (!q) return;
+  document.querySelectorAll('.dest-card').forEach(card => {
+    const text = card.innerText.toLowerCase();
+    card.style.display = text.includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+}
+document.getElementById('dest-search-input').addEventListener('keypress', e => {
+  if (e.key === 'Enter') filterDestinations();
+});
+</script>
+</body>
+</html>

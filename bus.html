@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bus Passes – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html" class="active">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="dashboard.html" class="btn btn-outline btn-sm">Login</a>
+    <a href="#passes" class="btn btn-primary btn-sm">Get a Pass</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ========== PAGE HEADER ========== -->
+<div class="page-header">
+  <div class="container">
+    <span class="badge badge-orange">Bus Services</span>
+    <h1>🚌 Bus Passes & Tickets</h1>
+    <p>From student subsidized passes to tourist day tickets — get the right bus pass for your journey.</p>
+  </div>
+</div>
+
+<!-- ========== PASS CARDS ========== -->
+<section class="section" id="passes">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Choose Your Pass</span>
+      <h2 class="section-title">Select the Pass That <em class="text-orange">Fits Your Life</em></h2>
+      <p class="section-sub">Click any pass to register and get your digital QR pass instantly.</p>
+    </div>
+
+    <div class="grid-3 fade-in" style="margin-bottom:40px;">
+
+      <!-- Student Pass -->
+      <div class="pass-card student" data-modal="modal-student">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🎓</div>
+        <span class="badge badge-dark">Most Popular</span>
+        <h3>Student Bus Pass</h3>
+        <div class="pass-price"><sup>₹</sup>199<span style="font-size:1rem;font-weight:400;color:var(--gray)">/month</span></div>
+        <ul>
+          <li>Unlimited rides on registered route</li>
+          <li>Requires valid college/school ID</li>
+          <li>Digital QR boarding pass</li>
+          <li>Route: College ↔ Home</li>
+          <li>Valid for one academic semester</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-student">Register Now</button>
+      </div>
+
+      <!-- Professional Pass -->
+      <div class="pass-card pro" data-modal="modal-pro">
+        <div style="font-size:2.2rem;margin-bottom:12px;">💼</div>
+        <h3>Working Professional Pass</h3>
+        <div class="pass-price"><sup>₹</sup>349<span style="font-size:1rem;font-weight:400;color:var(--gray)">/month</span></div>
+        <ul>
+          <li>Unlimited rides on office route</li>
+          <li>Peak hour guaranteed seating</li>
+          <li>AC bus priority access</li>
+          <li>Monthly expense receipt</li>
+          <li>Corporate billing available</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-pro">Register Now</button>
+      </div>
+
+      <!-- Tourist Pass -->
+      <div class="pass-card tourist" data-modal="modal-tourist">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🌍</div>
+        <h3>Tourist Day Pass</h3>
+        <div class="pass-price"><sup>₹</sup>99<span style="font-size:1rem;font-weight:400;color:var(--gray)">/day</span></div>
+        <ul>
+          <li>Hop-on hop-off city network</li>
+          <li>Valid on all city bus routes</li>
+          <li>No route restrictions</li>
+          <li>Includes city map PDF</li>
+          <li>Available as 3-day bundle ₹249</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-tourist">Get Day Pass</button>
+      </div>
+
+      <!-- Daily Ticket -->
+      <div class="pass-card daily" data-modal="modal-daily">
+        <div style="font-size:2.2rem;margin-bottom:12px;">🎫</div>
+        <h3>Daily Bus Ticket</h3>
+        <div class="pass-price"><sup>₹</sup>15<span style="font-size:1rem;font-weight:400;color:var(--gray)">/trip</span></div>
+        <ul>
+          <li>Single trip fare</li>
+          <li>Any city route</li>
+          <li>Valid for 2 hours from issue</li>
+          <li>Contactless QR payment</li>
+          <li>No registration required</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-daily">Buy Ticket</button>
+      </div>
+
+      <!-- Monthly Pass -->
+      <div class="pass-card monthly" data-modal="modal-monthly">
+        <div style="font-size:2.2rem;margin-bottom:12px;">📅</div>
+        <h3>Monthly Open Pass</h3>
+        <div class="pass-price"><sup>₹</sup>499<span style="font-size:1rem;font-weight:400;color:var(--gray)">/month</span></div>
+        <ul>
+          <li>Unlimited rides on any route</li>
+          <li>No route registration needed</li>
+          <li>Great for frequent travelers</li>
+          <li>Transferable between family</li>
+          <li>Auto-renew option available</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-monthly">Get Open Pass</button>
+      </div>
+
+      <!-- Senior pass -->
+      <div class="pass-card" style="background:linear-gradient(135deg,#fef9ee,#fef3c7);" data-modal="modal-senior">
+        <div style="font-size:2.2rem;margin-bottom:12px;">👴</div>
+        <span class="badge" style="background:#fff;color:var(--orange);border:1px solid var(--orange);">Senior Special</span>
+        <h3>Senior Citizen Pass</h3>
+        <div class="pass-price"><sup>₹</sup>79<span style="font-size:1rem;font-weight:400;color:var(--gray)">/month</span></div>
+        <ul>
+          <li>60% subsidy on monthly pass</li>
+          <li>Priority seating guaranteed</li>
+          <li>Requires age proof (60+)</li>
+          <li>Free on gov. holidays</li>
+          <li>Caregiver companion included</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-senior">Register Now</button>
+      </div>
+    </div>
+
+    <!-- Quick ticket buy -->
+    <div class="card fade-in" style="background:linear-gradient(135deg,#fff8f4,#fff);border-color:var(--orange);">
+      <div class="grid-2" style="gap:40px;align-items:center;">
+        <div>
+          <h3>🎯 Quick Single Trip Booking</h3>
+          <p style="margin:10px 0 20px;">No registration needed for single bus trips. Enter your route and pay via UPI.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">From</label>
+              <input class="form-control" placeholder="Boarding stop" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">To</label>
+              <input class="form-control" placeholder="Destination stop" />
+            </div>
+          </div>
+          <button class="btn btn-primary" data-modal="pay-modal">Pay ₹15 via UPI →</button>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:5rem;margin-bottom:8px;">🚌</div>
+          <p style="font-size:.85rem;">Live buses available on 200+ city routes</p>
+          <a href="live-status.html" class="btn btn-outline btn-sm" style="margin-top:10px;">View Live Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== INFO SECTION ========== -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="text-center fade-in">
+      <h2>How It <em class="text-orange">Works</em></h2>
+    </div>
+    <div class="grid-4 fade-in">
+      <div class="card text-center">
+        <div style="font-size:2.5rem;margin-bottom:12px;">1️⃣</div>
+        <h3>Choose Pass</h3>
+        <p>Pick the bus pass that matches your travel frequency and route.</p>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2.5rem;margin-bottom:12px;">2️⃣</div>
+        <h3>Register</h3>
+        <p>Fill in your details and upload any required identification documents.</p>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2.5rem;margin-bottom:12px;">3️⃣</div>
+        <h3>Pay Securely</h3>
+        <p>Complete payment via UPI, card, or net banking in seconds.</p>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2.5rem;margin-bottom:12px;">4️⃣</div>
+        <h3>Board with QR</h3>
+        <p>Show your digital QR code to board. No physical ticket needed!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Smart Travel Starts Here. Your trusted bus, train & flight companion.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li><li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li><li><a href="live-status.html">Live Status</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Support</h4><ul>
+        <li><a href="refund.html">Refunds</a></li><li><a href="support.html">Help Center</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li><li><a href="#">Careers</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== MODALS ========== -->
+
+<!-- Student Modal -->
+<div class="modal-overlay" id="modal-student">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🎓 Student Bus Pass Registration</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form data-validate data-success-msg="Student pass registered! Check your email for the QR code.">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-control" type="text" placeholder="Your full name" data-required />
+        <span class="form-error">Name is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-control" type="email" placeholder="student@college.edu" data-required />
+        <span class="form-error">Valid email required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">College / Institution</label>
+        <input class="form-control" type="text" placeholder="Your college name" data-required />
+        <span class="form-error">College name required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Travel Route</label>
+        <input class="form-control" type="text" placeholder="e.g., Kothrud → Deccan" data-required />
+        <span class="form-error">Route is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Upload College ID</label>
+        <div class="file-upload">
+          <input type="file" accept=".jpg,.jpeg,.png,.pdf" />
+          <div class="file-label">📂 Click to upload or drag & drop (JPG, PNG, PDF)</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Duration</label>
+        <select class="form-control">
+          <option>1 Month – ₹199</option>
+          <option>3 Months – ₹549</option>
+          <option>6 Months – ₹999</option>
+          <option>1 Academic Year – ₹1799</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" onclick="openModal('pay-modal')">Proceed to Payment →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Professional Modal -->
+<div class="modal-overlay" id="modal-pro">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💼 Professional Pass Registration</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form data-validate data-success-msg="Professional pass activated! QR sent to your email.">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-control" type="text" placeholder="Your full name" data-required />
+        <span class="form-error">Name is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Work Email</label>
+        <input class="form-control" type="email" placeholder="name@company.com" data-required />
+        <span class="form-error">Valid work email required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Company Name</label>
+        <input class="form-control" type="text" placeholder="Your employer" data-required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Office Route</label>
+        <input class="form-control" type="text" placeholder="e.g., Hinjewadi → Shivajinagar" data-required />
+        <span class="form-error">Route is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Upload Employee ID</label>
+        <div class="file-upload">
+          <input type="file" accept=".jpg,.jpeg,.png,.pdf" />
+          <div class="file-label">📂 Click to upload your company ID</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Billing Preference</label>
+        <select class="form-control">
+          <option>Personal – ₹349/month</option>
+          <option>Corporate Billing – ₹349/month</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Proceed to Payment →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Tourist Modal -->
+<div class="modal-overlay" id="modal-tourist">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🌍 Tourist Day Pass</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form data-validate data-success-msg="Tourist pass ready! Enjoy the city 🎉">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-control" type="text" placeholder="Your full name" data-required />
+        <span class="form-error">Name is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-control" type="email" placeholder="you@email.com" data-required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">City</label>
+        <select class="form-control" data-required>
+          <option value="">Select city</option>
+          <option>Mumbai</option><option>Pune</option><option>Bengaluru</option>
+          <option>Chennai</option><option>Hyderabad</option><option>Ahmedabad</option>
+        </select>
+        <span class="form-error">Please select a city</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Pass Duration</label>
+        <select class="form-control">
+          <option>1 Day – ₹99</option>
+          <option>3 Days – ₹249</option>
+          <option>7 Days – ₹499</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nationality</label>
+        <select class="form-control">
+          <option>Indian</option><option>Foreign National</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Get My Pass →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Daily Ticket Modal -->
+<div class="modal-overlay" id="modal-daily">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🎫 Buy Daily Bus Ticket</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form data-validate data-success-msg="Ticket generated! Valid for 2 hours.">
+      <div class="form-group">
+        <label class="form-label">From Stop</label>
+        <input class="form-control" type="text" placeholder="Boarding stop" data-required />
+        <span class="form-error">Boarding stop required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">To Stop</label>
+        <input class="form-control" type="text" placeholder="Destination stop" data-required />
+        <span class="form-error">Destination required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Number of Passengers</label>
+        <select class="form-control">
+          <option>1 – ₹15</option><option>2 – ₹30</option><option>3 – ₹45</option><option>4 – ₹60</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone (for ticket)</label>
+        <input class="form-control" type="tel" placeholder="+91 XXXXX XXXXX" data-required />
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Pay & Get Ticket →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Monthly Open Pass Modal -->
+<div class="modal-overlay" id="modal-monthly">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>📅 Monthly Open Pass Registration</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form data-validate data-success-msg="Monthly pass activated! Check email for QR code.">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-control" type="text" placeholder="Your name" data-required />
+        <span class="form-error">Name required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-control" type="email" placeholder="you@email.com" data-required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input class="form-control" type="tel" placeholder="+91 XXXXX XXXXX" data-required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">City</label>
+        <select class="form-control"><option>Mumbai</option><option>Pune</option><option>Bengaluru</option></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Upload Photo ID</label>
+        <div class="file-upload">
+          <input type="file" accept=".jpg,.jpeg,.png,.pdf" />
+          <div class="file-label">📂 Aadhar / Passport / Driving License</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Activate Pass – ₹499 →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Senior Modal -->
+<div class="modal-overlay" id="modal-senior">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>👴 Senior Citizen Pass</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form data-validate data-success-msg="Senior pass registered! Verification takes 24 hrs.">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-control" type="text" placeholder="Your full name" data-required />
+        <span class="form-error">Name required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date of Birth</label>
+        <input class="form-control" type="date" data-required />
+        <span class="form-error">Date of birth required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <input class="form-control" type="tel" placeholder="+91 XXXXX XXXXX" data-required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Upload Age Proof</label>
+        <div class="file-upload">
+          <input type="file" accept=".jpg,.jpeg,.png,.pdf" />
+          <div class="file-label">📂 Aadhar Card or Birth Certificate</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Register – ₹79/month →</button>
+    </form>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="pay-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💳 Complete Payment</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="pay-amount-display">
+      <div style="font-size:.85rem;color:var(--gray);margin-bottom:4px;">Amount to Pay</div>
+      <strong>₹199</strong>
+      <div style="font-size:.8rem;color:var(--gray);">Student Bus Pass – 1 Month</div>
+    </div>
+    <div class="pay-method">
+      <div class="pay-option selected">
+        <span class="pay-icon">📱</span>
+        <span>UPI / Google Pay / PhonePe</span>
+      </div>
+      <div class="pay-option">
+        <span class="pay-icon">💳</span>
+        <span>Credit / Debit Card</span>
+      </div>
+      <div class="pay-option">
+        <span class="pay-icon">🏦</span>
+        <span>Net Banking</span>
+      </div>
+      <div class="pay-option">
+        <span class="pay-icon">👝</span>
+        <span>TripVerse Wallet</span>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-full btn-lg" id="confirm-pay">Pay ₹199 →</button>
+    <p style="text-align:center;font-size:.78rem;margin-top:12px;color:var(--gray);">🔒 256-bit SSL encrypted. Safe & Secure.</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

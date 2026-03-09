@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flights – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html" class="active">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="dashboard.html" class="btn btn-outline btn-sm">Login</a>
+    <a href="#search" class="btn btn-primary btn-sm">Search Flights</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="badge badge-orange">Flights</span>
+    <h1>✈️ Domestic & International Flights</h1>
+    <p>Compare fares across all major airlines. Best prices guaranteed on TripVerse.</p>
+  </div>
+</div>
+
+<!-- FLIGHT SEARCH -->
+<section class="section-sm" id="search">
+  <div class="container">
+    <div class="flight-search-box fade-in">
+      <div class="flight-tabs">
+        <button class="flight-tab active">One Way</button>
+        <button class="flight-tab">Round Trip</button>
+        <button class="flight-tab">Multi-City</button>
+      </div>
+      <div class="flight-form-row">
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">From</label>
+          <input class="form-control" value="Mumbai (BOM)" placeholder="Departure city" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">To</label>
+          <input class="form-control" value="Delhi (DEL)" placeholder="Destination city" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">Departure</label>
+          <input class="form-control" type="date" value="2026-03-10" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">Passengers & Class</label>
+          <select class="form-control">
+            <option>1 Adult – Economy</option>
+            <option>2 Adults – Economy</option>
+            <option>1 Adult – Business</option>
+            <option>1 Adult – First Class</option>
+            <option>Family Pack (4)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="align-self:flex-end;padding:11px 24px;">Search ✈️</button>
+      </div>
+    </div>
+
+    <!-- Filter row -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;" class="fade-in">
+      <button class="btn btn-outline btn-sm">⏰ Sort: Cheapest</button>
+      <button class="btn btn-sm" style="background:var(--gray-light);">🕐 Morning</button>
+      <button class="btn btn-sm" style="background:var(--gray-light);">Non-stop only</button>
+      <button class="btn btn-sm" style="background:var(--gray-light);">IndiGo</button>
+      <button class="btn btn-sm" style="background:var(--gray-light);">Air India</button>
+      <button class="btn btn-sm" style="background:var(--gray-light);">SpiceJet</button>
+      <button class="btn btn-sm" style="background:var(--gray-light);">Vistara</button>
+    </div>
+
+    <!-- Domestic Results -->
+    <h3 style="margin-bottom:16px;" class="fade-in">Mumbai → Delhi – 10 Mar 2026 <span class="badge badge-orange" style="font-size:.75rem;margin-left:8px;">8 flights</span></h3>
+
+    <div class="fade-in">
+      <!-- Flight 1 -->
+      <div class="flight-card" data-modal="modal-flight-book">
+        <div style="min-width:110px;">
+          <div style="font-size:1.5rem;margin-bottom:4px;">🔵</div>
+          <div class="flight-airline">IndiGo</div>
+          <div style="font-size:.75rem;color:var(--gray);">6E-2341</div>
+        </div>
+        <div>
+          <div class="flight-time">06:10</div>
+          <div class="flight-station" style="font-size:.78rem;color:var(--gray);">BOM T2</div>
+        </div>
+        <div class="flight-arrow">──── ✈ ────</div>
+        <div>
+          <div class="flight-time">08:45</div>
+          <div class="flight-station" style="font-size:.78rem;color:var(--gray);">DEL T3</div>
+        </div>
+        <div style="text-align:center;min-width:80px;">
+          <div class="flight-duration">2h 35m</div>
+          <div style="font-size:.72rem;color:var(--orange);">Non-stop</div>
+        </div>
+        <div>
+          <div style="font-size:.75rem;color:var(--gray);margin-bottom:4px;">Economy</div>
+          <div class="flight-price">₹3,499</div>
+          <div style="font-size:.72rem;color:var(--gray);">per person</div>
+        </div>
+        <button class="btn btn-primary btn-sm" data-modal="modal-flight-book" onclick="event.stopPropagation()">Book</button>
+      </div>
+
+      <!-- Flight 2 -->
+      <div class="flight-card" data-modal="modal-flight-book">
+        <div style="min-width:110px;">
+          <div style="font-size:1.5rem;margin-bottom:4px;">🟠</div>
+          <div class="flight-airline">SpiceJet</div>
+          <div style="font-size:.75rem;color:var(--gray);">SG-118</div>
+        </div>
+        <div>
+          <div class="flight-time">08:30</div>
+          <div class="flight-station" style="font-size:.78rem;color:var(--gray);">BOM T1</div>
+        </div>
+        <div class="flight-arrow">──── ✈ ────</div>
+        <div>
+          <div class="flight-time">11:05</div>
+          <div class="flight-station" style="font-size:.78rem;color:var(--gray);">DEL T2</div>
+        </div>
+        <div style="text-align:center;min-width:80px;">
+          <div class="flight-duration">2h 35m</div>
+          <div style="font-size:.72rem;color:var(--orange);">Non-stop</div>
+        </div>
+        <div>
+          <div style="font-size:.75rem;color:var(--gray);margin-bottom:4px;">Economy</div>
+          <div class="flight-price">₹2,899</div>
+          <div style="font-size:.72rem;color:var(--gray);">per person</div>
+        </div>
+        <button class="btn btn-primary btn-sm" data-modal="modal-flight-book" onclick="event.stopPropagation()">Book</button>
+      </div>
+
+      <!-- Flight 3 - Business -->
+      <div class="flight-card" data-modal="modal-flight-book">
+        <div style="min-width:110px;">
+          <div style="font-size:1.5rem;margin-bottom:4px;">🔴</div>
+          <div class="flight-airline">Air India</div>
+          <div style="font-size:.75rem;color:var(--gray);">AI-865</div>
+        </div>
+        <div>
+          <div class="flight-time">10:15</div>
+          <div class="flight-station" style="font-size:.78rem;color:var(--gray);">BOM T2</div>
+        </div>
+        <div class="flight-arrow">──── ✈ ────</div>
+        <div>
+          <div class="flight-time">12:50</div>
+          <div class="flight-station" style="font-size:.78rem;color:var(--gray);">DEL T3</div>
+        </div>
+        <div style="text-align:center;min-width:80px;">
+          <div class="flight-duration">2h 35m</div>
+          <div style="font-size:.72rem;color:var(--orange);">Non-stop</div>
+        </div>
+        <div>
+          <div style="font-size:.75rem;color:var(--gray);margin-bottom:4px;">Business</div>
+          <div class="flight-price">₹12,999</div>
+          <div style="font-size:.72rem;color:var(--gray);">per person</div>
+        </div>
+        <button class="btn btn-primary btn-sm" data-modal="modal-flight-book" onclick="event.stopPropagation()">Book</button>
+      </div>
+
+      <!-- Flight 4 -->
+      <div class="flight-card" data-modal="modal-flight-book">
+        <div style="min-width:110px;">
+          <div style="font-size:1.5rem;margin-bottom:4px;">🟣</div>
+          <div class="flight-airline">Vistara</div>
+          <div style="font-size:.75rem;color:var(--gray);">UK-993</div>
+        </div>
+        <div>
+          <div class="flight-time">14:45</div>
+          <div class="flight-station" style="font-size:.78rem;color:var(--gray);">BOM T2</div>
+        </div>
+        <div class="flight-arrow">──── ✈ ────</div>
+        <div>
+          <div class="flight-time">17:20</div>
+          <div class="flight-station" style="font-size:.78rem;color:var(--gray);">DEL T3</div>
+        </div>
+        <div style="text-align:center;min-width:80px;">
+          <div class="flight-duration">2h 35m</div>
+          <div style="font-size:.72rem;color:var(--orange);">Non-stop</div>
+        </div>
+        <div>
+          <div style="font-size:.75rem;color:var(--gray);margin-bottom:4px;">Economy</div>
+          <div class="flight-price">₹4,199</div>
+          <div style="font-size:.72rem;color:var(--gray);">per person</div>
+        </div>
+        <button class="btn btn-primary btn-sm" data-modal="modal-flight-book" onclick="event.stopPropagation()">Book</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERNATIONAL FLIGHTS -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">International</span>
+      <h2 class="section-title">Popular <em class="text-orange">International Routes</em></h2>
+    </div>
+    <div class="grid-3 fade-in">
+      <div class="card" style="cursor:pointer;" data-modal="modal-flight-book">
+        <div style="font-size:2rem;margin-bottom:12px;">🇦🇪</div>
+        <h3>Mumbai → Dubai</h3>
+        <p style="font-size:.85rem;margin:8px 0;">Direct • 3h 30m • Daily</p>
+        <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--orange);">₹14,999</div>
+        <p style="font-size:.75rem;color:var(--gray);">Starting from per person</p>
+        <button class="btn btn-outline btn-sm" style="margin-top:14px;" data-modal="modal-flight-book">View Flights</button>
+      </div>
+      <div class="card" style="cursor:pointer;" data-modal="modal-flight-book">
+        <div style="font-size:2rem;margin-bottom:12px;">🇸🇬</div>
+        <h3>Bengaluru → Singapore</h3>
+        <p style="font-size:.85rem;margin:8px 0;">Direct • 5h 20m • 5x weekly</p>
+        <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--orange);">₹22,499</div>
+        <p style="font-size:.75rem;color:var(--gray);">Starting from per person</p>
+        <button class="btn btn-outline btn-sm" style="margin-top:14px;" data-modal="modal-flight-book">View Flights</button>
+      </div>
+      <div class="card" style="cursor:pointer;" data-modal="modal-flight-book">
+        <div style="font-size:2rem;margin-bottom:12px;">🇬🇧</div>
+        <h3>Delhi → London</h3>
+        <p style="font-size:.85rem;margin:8px 0;">Direct • 9h 45m • Daily</p>
+        <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--orange);">₹52,999</div>
+        <p style="font-size:.75rem;color:var(--gray);">Starting from per person</p>
+        <button class="btn btn-outline btn-sm" style="margin-top:14px;" data-modal="modal-flight-book">View Flights</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOUR PACKAGES -->
+<section class="section">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Tour Packages</span>
+      <h2 class="section-title">All-Inclusive Travel <em class="text-orange">Packages</em></h2>
+    </div>
+    <div class="grid-3 fade-in">
+      <div class="card" style="border-top:4px solid var(--orange);">
+        <div style="font-size:2rem;margin-bottom:12px;">🏖️</div>
+        <h3>Goa Beach Package</h3>
+        <p style="font-size:.88rem;margin:10px 0;">Flights + 4★ Hotel + Transfers • 4 Days / 3 Nights</p>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--orange);">₹18,999 <span style="font-size:.9rem;font-weight:400;color:var(--gray);">/ person</span></div>
+        <button class="btn btn-primary btn-full" style="margin-top:16px;" data-modal="modal-flight-book">Book Package</button>
+      </div>
+      <div class="card" style="border-top:4px solid #7c3aed;">
+        <div style="font-size:2rem;margin-bottom:12px;">🏔️</div>
+        <h3>Manali Mountain Escape</h3>
+        <p style="font-size:.88rem;margin:10px 0;">Flights + 3★ Resort + Sightseeing • 5 Days / 4 Nights</p>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--orange);">₹24,999 <span style="font-size:.9rem;font-weight:400;color:var(--gray);">/ person</span></div>
+        <button class="btn btn-primary btn-full" style="margin-top:16px;" data-modal="modal-flight-book">Book Package</button>
+      </div>
+      <div class="card" style="border-top:4px solid #0f172a;">
+        <div style="font-size:2rem;margin-bottom:12px;">🏝️</div>
+        <h3>Andaman Paradise</h3>
+        <p style="font-size:.88rem;margin:10px 0;">Flights + 5★ Resort + Diving • 6 Days / 5 Nights</p>
+        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--orange);">₹42,999 <span style="font-size:.9rem;font-weight:400;color:var(--gray);">/ person</span></div>
+        <button class="btn btn-primary btn-full" style="margin-top:16px;" data-modal="modal-flight-book">Book Package</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Best flight deals across all major airlines. Book smart with TripVerse.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li><li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li><li><a href="live-status.html">Live Status</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Support</h4><ul>
+        <li><a href="refund.html">Refunds</a></li><li><a href="support.html">Help Center</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li><li><a href="#">Careers</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Flight Booking Modal -->
+<div class="modal-overlay" id="modal-flight-book">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>✈️ Flight Booking</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form data-validate data-success-msg="Flight booked! E-ticket sent to your email.">
+      <div class="form-group">
+        <label class="form-label">Passenger Full Name</label>
+        <input class="form-control" type="text" placeholder="As on passport / ID" data-required />
+        <span class="form-error">Name is required</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">Age</label>
+          <input class="form-control" type="number" placeholder="Age" data-required />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">Gender</label>
+          <select class="form-control">
+            <option>Male</option><option>Female</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label class="form-label">Email</label>
+        <input class="form-control" type="email" placeholder="you@email.com" data-required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input class="form-control" type="tel" placeholder="+91 XXXXX XXXXX" data-required />
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">From</label>
+          <input class="form-control" value="Mumbai (BOM)" data-required />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">To</label>
+          <input class="form-control" value="Delhi (DEL)" data-required />
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label class="form-label">Seat Preference</label>
+        <select class="form-control">
+          <option>Window</option><option>Aisle</option><option>Middle</option><option>No Preference</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Meal Preference</label>
+        <select class="form-control">
+          <option>Vegetarian</option><option>Non-Vegetarian</option><option>Vegan</option><option>No Preference</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Proceed to Payment →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal-overlay" id="pay-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💳 Complete Payment</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="pay-amount-display">
+      <div style="font-size:.85rem;color:var(--gray);margin-bottom:4px;">Amount to Pay</div>
+      <strong>₹3,499</strong>
+      <div style="font-size:.8rem;color:var(--gray);">IndiGo 6E-2341 | BOM → DEL | 10 Mar 2026</div>
+    </div>
+    <div class="pay-method">
+      <div class="pay-option selected"><span class="pay-icon">📱</span><span>UPI / Google Pay / PhonePe</span></div>
+      <div class="pay-option"><span class="pay-icon">💳</span><span>Credit / Debit Card</span></div>
+      <div class="pay-option"><span class="pay-icon">🏦</span><span>Net Banking</span></div>
+      <div class="pay-option"><span class="pay-icon">👝</span><span>TripVerse Wallet</span></div>
+    </div>
+    <button class="btn btn-primary btn-full btn-lg" id="confirm-pay">Pay ₹3,499 →</button>
+    <p style="text-align:center;font-size:.78rem;margin-top:12px;color:var(--gray);">🔒 256-bit SSL encrypted. Safe & Secure.</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Suggestions – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Suggestions hero */
+    .sugg-hero {
+      background: linear-gradient(135deg, #fff8f4 0%, #ffffff 50%, #fff3ec 100%);
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .sugg-hero::before {
+      content: '';
+      position: absolute;
+      top: -180px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,92,0,.1) 0%, transparent 70%);
+    }
+
+    /* Mood selector */
+    .mood-grid {
+      display: grid;
+      grid-template-columns: repeat(5,1fr);
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+    .mood-card {
+      border-radius: var(--radius);
+      padding: 20px 12px;
+      text-align: center;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--white);
+    }
+    .mood-card:hover, .mood-card.active {
+      border-color: var(--orange);
+      background: var(--orange-pale);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-sm);
+    }
+    .mood-card .m-icon  { font-size: 2rem; margin-bottom: 8px; }
+    .mood-card .m-label { font-size: .82rem; font-weight: 600; color: var(--dark); }
+
+    /* Suggestion card — horizontal layout for featured */
+    .sugg-card-h {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--white);
+      transition: var(--transition);
+    }
+    .sugg-card-h:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--orange);
+      transform: translateY(-3px);
+    }
+    .sugg-img-h {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+    }
+    .sugg-body-h { padding: 24px; display: flex; flex-direction: column; justify-content: center; }
+    .sugg-body-h h3 { font-size: 1.15rem; margin-bottom: 6px; }
+    .sugg-body-h p  { font-size: .88rem; margin-bottom: 14px; }
+
+    /* Regular suggestion card */
+    .sugg-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--white);
+      transition: var(--transition);
+    }
+    .sugg-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--orange);
+    }
+    .sugg-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      position: relative;
+    }
+    .sugg-img .duration-tag {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      background: rgba(0,0,0,.6);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+    .sugg-img .from-tag {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: var(--orange);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+    .sugg-body { padding: 18px; }
+    .sugg-body h3 { font-size: 1rem; margin-bottom: 6px; }
+    .sugg-body p  { font-size: .84rem; margin-bottom: 12px; line-height: 1.5; }
+    .sugg-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sugg-price {
+      font-family: 'Syne', sans-serif;
+      font-size: .95rem;
+      font-weight: 800;
+      color: var(--orange);
+    }
+    .sugg-price small { font-size: .72rem; font-weight: 400; color: var(--gray); font-family: 'DM Sans', sans-serif; }
+
+    /* Section styling */
+    .sugg-section { margin-bottom: 64px; }
+    .sugg-section-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--orange-pale);
+    }
+    .sugg-section-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      background: var(--orange-pale);
+    }
+    .sugg-section-head h2 { font-size: 1.5rem; margin: 0; }
+    .sugg-section-head p  { margin: 0; font-size: .85rem; }
+
+    /* Tag chips on cards */
+    .tag-chip {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--orange-pale);
+      color: var(--orange);
+      border-radius: 6px;
+      font-size: .72rem;
+      font-weight: 600;
+      margin: 4px 4px 0 0;
+    }
+
+    /* Weather strip */
+    .season-strip {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+    .season-card {
+      border-radius: var(--radius);
+      padding: 18px;
+      text-align: center;
+      border: 1.5px solid var(--border);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .season-card:hover, .season-card.active {
+      border-color: var(--orange);
+      background: var(--orange-pale);
+    }
+    .season-card .s-emoji { font-size: 1.8rem; margin-bottom: 6px; }
+    .season-card h4 { font-size: .95rem; margin-bottom: 4px; font-family: 'Syne', sans-serif; }
+    .season-card p  { font-size: .78rem; margin: 0; }
+
+    @media(max-width:768px) {
+      .mood-grid { grid-template-columns: repeat(3,1fr); }
+      .season-strip { grid-template-columns: repeat(2,1fr); }
+      .sugg-card-h { grid-template-columns: 1fr; }
+      .sugg-img-h { min-height: 150px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html" class="active">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="trip-planner.html" class="btn btn-outline btn-sm">Plan Trip</a>
+    <a href="bus.html" class="btn btn-primary btn-sm">Book Now</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="sugg-hero">
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="badge badge-orange">💡 Smart Suggestions</span>
+    <h1 style="margin:14px 0;">Travel Ideas Tailored<br>for <em class="text-orange">You</em></h1>
+    <p style="max-width:540px;margin:0 auto 36px;">Curated getaways by season, mood, and budget. From quick weekend escapes to grand cultural expeditions — find your perfect trip.</p>
+
+    <!-- Mood selector -->
+    <div style="font-weight:600;margin-bottom:14px;font-size:.9rem;">How are you feeling today?</div>
+    <div class="mood-grid" style="max-width:700px;margin:0 auto 0;">
+      <div class="mood-card active" data-mood="adventure">
+        <div class="m-icon">🧗</div>
+        <div class="m-label">Adventurous</div>
+      </div>
+      <div class="mood-card" data-mood="relax">
+        <div class="m-icon">🌊</div>
+        <div class="m-label">Relaxed</div>
+      </div>
+      <div class="mood-card" data-mood="culture">
+        <div class="m-icon">🏛️</div>
+        <div class="m-label">Cultural</div>
+      </div>
+      <div class="mood-card" data-mood="romantic">
+        <div class="m-icon">💑</div>
+        <div class="m-label">Romantic</div>
+      </div>
+      <div class="mood-card" data-mood="family">
+        <div class="m-icon">👨‍👩‍👧</div>
+        <div class="m-label">Family</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Season filter -->
+    <div class="season-strip fade-in">
+      <div class="season-card active" data-season="all">
+        <div class="s-emoji">🌐</div>
+        <h4>All Season</h4>
+        <p>See everything</p>
+      </div>
+      <div class="season-card" data-season="summer">
+        <div class="s-emoji">☀️</div>
+        <h4>Summer</h4>
+        <p>Mar – Jun | Hills & Hills</p>
+      </div>
+      <div class="season-card" data-season="monsoon">
+        <div class="s-emoji">🌧️</div>
+        <h4>Monsoon</h4>
+        <p>Jun – Sep | Waterfalls</p>
+      </div>
+      <div class="season-card" data-season="winter">
+        <div class="s-emoji">❄️</div>
+        <h4>Winter</h4>
+        <p>Oct – Feb | Heritage</p>
+      </div>
+    </div>
+
+    <!-- ── WEEKEND TRIPS FROM PUNE ── -->
+    <div class="sugg-section fade-in" data-season="all">
+      <div class="sugg-section-head">
+        <div class="sugg-section-icon">🚗</div>
+        <div>
+          <h2>Weekend Trips from Pune</h2>
+          <p>Perfect 1–2 day getaways under 4 hours from the city</p>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-bottom:20px;">
+
+        <!-- Lonavala -->
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">
+            🌁
+            <span class="duration-tag">⏱ 1–2 Days</span>
+            <span class="from-tag">~80 km</span>
+          </div>
+          <div class="sugg-body">
+            <h3>Lonavala</h3>
+            <p>Mist-covered valleys, the Bhushi Dam cascade, Rajmachi fort trek, and the best chikki in Maharashtra. Perfect for monsoon magic.</p>
+            <span class="tag-chip">🌧️ Best in Monsoon</span>
+            <span class="tag-chip">🧗 Trekking</span>
+            <div class="sugg-footer" style="margin-top:14px;">
+              <div class="sugg-price">₹1,200 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Lonavala" class="btn btn-primary btn-sm">View Details →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mahabaleshwar -->
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#f0fdf4,#bbf7d0);">
+            🍓
+            <span class="duration-tag">⏱ 2 Days</span>
+            <span class="from-tag">~120 km</span>
+          </div>
+          <div class="sugg-body">
+            <h3>Mahabaleshwar</h3>
+            <p>Strawberry farms, sweeping Sahyadri viewpoints, boating at Venna Lake, and the ancient Mahabaleshwar temple. A classic Maharashtra escape.</p>
+            <span class="tag-chip">🍓 Strawberry Season</span>
+            <span class="tag-chip">💑 Romantic</span>
+            <div class="sugg-footer" style="margin-top:14px;">
+              <div class="sugg-price">₹2,500 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Mahabaleshwar" class="btn btn-primary btn-sm">View Details →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alibaug -->
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#dbeafe,#93c5fd);">
+            🏖️
+            <span class="duration-tag">⏱ 1–2 Days</span>
+            <span class="from-tag">~150 km</span>
+          </div>
+          <div class="sugg-body">
+            <h3>Alibaug</h3>
+            <p>The coast road drive, golden Alibaug beach, the Kolaba Fort accessible at low tide, and fresh Konkan seafood make this Maharashtra's coastal jewel.</p>
+            <span class="tag-chip">🏖️ Beach</span>
+            <span class="tag-chip">👨‍👩‍👧 Family</span>
+            <div class="sugg-footer" style="margin-top:14px;">
+              <div class="sugg-price">₹1,800 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Alibaug" class="btn btn-primary btn-sm">View Details →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- More weekend options horizontal -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="sugg-card-h">
+          <div class="sugg-img-h" style="background:linear-gradient(135deg,#fef3c7,#fcd34d);">🏰</div>
+          <div class="sugg-body-h">
+            <div style="display:flex;gap:8px;margin-bottom:8px;">
+              <span class="tag-chip">🏛️ Heritage</span><span class="tag-chip">~160 km</span><span class="tag-chip">⏱ 2 Days</span>
+            </div>
+            <h3>Aurangabad (Chhatrapati Sambhajinagar)</h3>
+            <p>Home to the UNESCO Ajanta & Ellora Caves, the Bibi Ka Maqbara, and Daulatabad Fort — a weekend packed with ancient wonders just 4 hours from Pune.</p>
+            <a href="trip-planner.html?dest=Aurangabad" class="btn btn-primary btn-sm" style="width:fit-content;">View Details →</a>
+          </div>
+        </div>
+        <div class="sugg-card-h">
+          <div class="sugg-img-h" style="background:linear-gradient(135deg,#ede9fe,#c4b5fd);">🧘</div>
+          <div class="sugg-body-h">
+            <div style="display:flex;gap:8px;margin-bottom:8px;">
+              <span class="tag-chip">🙏 Spiritual</span><span class="tag-chip">~240 km</span><span class="tag-chip">⏱ 2 Days</span>
+            </div>
+            <h3>Shirdi & Shani Shingnapur</h3>
+            <p>A spiritual circuit combining the famous Sai Baba shrine at Shirdi with the open-air Shani temple at Shingnapur — ideal for a serene, soul-replenishing weekend.</p>
+            <a href="trip-planner.html?dest=Shirdi" class="btn btn-primary btn-sm" style="width:fit-content;">View Details →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SUMMER DESTINATIONS ── -->
+    <div class="sugg-section fade-in" data-season="summer">
+      <div class="sugg-section-head">
+        <div class="sugg-section-icon">☀️</div>
+        <div>
+          <h2>Summer Destinations</h2>
+          <p>Beat the heat — cool hills and pleasant retreats for March to June</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd);">🌸<span class="duration-tag">⏱ 3–4 Days</span></div>
+          <div class="sugg-body">
+            <h3>Shimla & Manali</h3>
+            <p>Himachal Pradesh's crown jewels — colonial Shimla in spring and snow-clad Manali for adventure lovers.</p>
+            <span class="tag-chip">❄️ Cool Climate</span>
+            <div class="sugg-footer" style="margin-top:12px;">
+              <div class="sugg-price">₹8,499 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Manali" class="btn btn-primary btn-sm">View →</a>
+            </div>
+          </div>
+        </div>
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#f0fdf4,#86efac);">🌿<span class="duration-tag">⏱ 4–5 Days</span></div>
+          <div class="sugg-body">
+            <h3>Coorg, Karnataka</h3>
+            <p>India's coffee capital surrounded by misty coffee plantations, waterfalls, and the serene Kaveri river. Scotland of India.</p>
+            <span class="tag-chip">☕ Coffee Country</span>
+            <div class="sugg-footer" style="margin-top:12px;">
+              <div class="sugg-price">₹6,999 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Coorg" class="btn btn-primary btn-sm">View →</a>
+            </div>
+          </div>
+        </div>
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#ecfdf5,#6ee7b7);">🌊<span class="duration-tag">⏱ 3–4 Days</span></div>
+          <div class="sugg-body">
+            <h3>Munnar, Kerala</h3>
+            <p>Rolling tea estates, cool misty air, and untouched nature at 1,600 m altitude. Kerala's most scenic hill station.</p>
+            <span class="tag-chip">🍃 Tea Estates</span>
+            <div class="sugg-footer" style="margin-top:12px;">
+              <div class="sugg-price">₹7,499 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Munnar" class="btn btn-primary btn-sm">View →</a>
+            </div>
+          </div>
+        </div>
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe);">🏔️<span class="duration-tag">⏱ 5–7 Days</span></div>
+          <div class="sugg-body">
+            <h3>Leh-Ladakh</h3>
+            <p>High-altitude desert with azure lakes, ancient monasteries, and the world's highest motorable roads. The ultimate summer bucket list.</p>
+            <span class="tag-chip">🏍️ Road Trip</span>
+            <div class="sugg-footer" style="margin-top:12px;">
+              <div class="sugg-price">₹14,999 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Leh+Ladakh" class="btn btn-primary btn-sm">View →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MONSOON & WINTER ── -->
+    <div class="grid-2" style="gap:40px;margin-bottom:64px;" class="fade-in">
+      <!-- Monsoon -->
+      <div class="sugg-section fade-in" data-season="monsoon">
+        <div class="sugg-section-head">
+          <div class="sugg-section-icon">🌧️</div>
+          <div>
+            <h2>Monsoon Escapes</h2>
+            <p>Waterfalls and green valleys — Jun to Sep</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="sugg-card-h">
+            <div class="sugg-img-h" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);min-height:120px;">💧</div>
+            <div class="sugg-body-h" style="padding:16px;">
+              <span class="tag-chip">🌊 Waterfalls</span>
+              <h3 style="margin-top:6px;">Cherrapunji, Meghalaya</h3>
+              <p>The wettest place on Earth in monsoon — living root bridges, seven sisters waterfalls, and neon-green hills.</p>
+              <a href="trip-planner.html?dest=Cherrapunji" class="btn btn-primary btn-sm" style="width:fit-content;margin-top:8px;">View Details</a>
+            </div>
+          </div>
+          <div class="sugg-card-h">
+            <div class="sugg-img-h" style="background:linear-gradient(135deg,#dcfce7,#86efac);min-height:120px;">🌿</div>
+            <div class="sugg-body-h" style="padding:16px;">
+              <span class="tag-chip">🌳 Jungle</span>
+              <h3 style="margin-top:6px;">Wayanad, Kerala</h3>
+              <p>Dense forests, elephant sightings, Soochipara waterfalls, and misty coffee estates turn electric green in the rains.</p>
+              <a href="trip-planner.html?dest=Wayanad" class="btn btn-primary btn-sm" style="width:fit-content;margin-top:8px;">View Details</a>
+            </div>
+          </div>
+          <div class="sugg-card-h">
+            <div class="sugg-img-h" style="background:linear-gradient(135deg,#e0f2fe,#7dd3fc);min-height:120px;">🏔️</div>
+            <div class="sugg-body-h" style="padding:16px;">
+              <span class="tag-chip">⛰️ Sahyadri</span>
+              <h3 style="margin-top:6px;">Kaas Plateau, Maharashtra</h3>
+              <p>UNESCO biodiversity hotspot that bursts into a carpet of wildflowers during monsoon. "Valley of Flowers of Maharashtra."</p>
+              <a href="trip-planner.html?dest=Kaas+Plateau" class="btn btn-primary btn-sm" style="width:fit-content;margin-top:8px;">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Winter -->
+      <div class="sugg-section fade-in" data-season="winter">
+        <div class="sugg-section-head">
+          <div class="sugg-section-icon">❄️</div>
+          <div>
+            <h2>Winter Destinations</h2>
+            <p>Heritage, warmth and festivals — Oct to Feb</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="sugg-card-h">
+            <div class="sugg-img-h" style="background:linear-gradient(135deg,#fef3c7,#fde68a);min-height:120px;">🐪</div>
+            <div class="sugg-body-h" style="padding:16px;">
+              <span class="tag-chip">🏜️ Rajasthan</span>
+              <h3 style="margin-top:6px;">Jaisalmer Desert Safari</h3>
+              <p>Golden sand dunes, camel rides under the stars, and a stunning fortress city glowing in sunset light. Winter is peak Rajasthan season.</p>
+              <a href="trip-planner.html?dest=Jaisalmer" class="btn btn-primary btn-sm" style="width:fit-content;margin-top:8px;">View Details</a>
+            </div>
+          </div>
+          <div class="sugg-card-h">
+            <div class="sugg-img-h" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8);min-height:120px;">🕉️</div>
+            <div class="sugg-body-h" style="padding:16px;">
+              <span class="tag-chip">🙏 Spiritual</span>
+              <h3 style="margin-top:6px;">Varanasi & Allahabad</h3>
+              <p>Winter Ganga Aarti, foggy dawn boat rides, and the Kumbh Mela energy at Prayagraj — India's most profound spiritual circuit.</p>
+              <a href="trip-planner.html?dest=Varanasi" class="btn btn-primary btn-sm" style="width:fit-content;margin-top:8px;">View Details</a>
+            </div>
+          </div>
+          <div class="sugg-card-h">
+            <div class="sugg-img-h" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);min-height:120px;">🐅</div>
+            <div class="sugg-body-h" style="padding:16px;">
+              <span class="tag-chip">🌿 Wildlife</span>
+              <h3 style="margin-top:6px;">Jim Corbett Tiger Reserve</h3>
+              <p>India's oldest national park is at its best in winter — dense jungle safaris with the best chances of spotting the majestic Bengal tiger.</p>
+              <a href="trip-planner.html?dest=Jim+Corbett" class="btn btn-primary btn-sm" style="width:fit-content;margin-top:8px;">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ADVENTURE TRAVEL ── -->
+    <div class="sugg-section fade-in">
+      <div class="sugg-section-head">
+        <div class="sugg-section-icon">🧗</div>
+        <div>
+          <h2>Adventure Travel</h2>
+          <p>Push your limits with India's best adrenaline-fuelled destinations</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#fee2e2,#fca5a5);">🏄<span class="from-tag">Extreme</span></div>
+          <div class="sugg-body">
+            <h3>Rishikesh White-water Rafting</h3>
+            <p>Tackle Grade IV rapids on the Ganges through stunning gorges. Also India's bungee jumping capital.</p>
+            <span class="tag-chip">🌊 Rafting</span><span class="tag-chip">🏔️ Himalayan foothills</span>
+            <div class="sugg-footer" style="margin-top:12px;">
+              <div class="sugg-price">₹3,999 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Rishikesh" class="btn btn-primary btn-sm">View →</a>
+            </div>
+          </div>
+        </div>
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#e0e7ff,#a5b4fc);">🪂<span class="from-tag">Thrill</span></div>
+          <div class="sugg-body">
+            <h3>Paragliding in Bir Billing</h3>
+            <p>Bir Billing is Asia's top paragliding destination, set in the Kangra valley of Himachal with the most thermals in the subcontinent.</p>
+            <span class="tag-chip">🪂 Paragliding</span><span class="tag-chip">🏔️ Himachal</span>
+            <div class="sugg-footer" style="margin-top:12px;">
+              <div class="sugg-price">₹5,999 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Bir+Billing" class="btn btn-primary btn-sm">View →</a>
+            </div>
+          </div>
+        </div>
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">🤿<span class="from-tag">Underwater</span></div>
+          <div class="sugg-body">
+            <h3>Scuba Diving, Andaman</h3>
+            <p>The Andaman sea offers some of Asia's best scuba diving — vivid coral reefs, sea turtles, and crystal-clear visibility up to 40 metres.</p>
+            <span class="tag-chip">🐠 Scuba</span><span class="tag-chip">🏝️ Island</span>
+            <div class="sugg-footer" style="margin-top:12px;">
+              <div class="sugg-price">₹12,999 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Andaman" class="btn btn-primary btn-sm">View →</a>
+            </div>
+          </div>
+        </div>
+        <div class="sugg-card">
+          <div class="sugg-img" style="background:linear-gradient(135deg,#fef9ee,#fed7aa);">🥾<span class="from-tag">Trek</span></div>
+          <div class="sugg-body">
+            <h3>Valley of Flowers Trek</h3>
+            <p>A UNESCO World Heritage trek through a high-altitude Himalayan meadow blooming with 300+ species of wildflowers. July–September peak.</p>
+            <span class="tag-chip">🌸 Flowers</span><span class="tag-chip">🏔️ Uttarakhand</span>
+            <div class="sugg-footer" style="margin-top:12px;">
+              <div class="sugg-price">₹9,499 <small>/person</small></div>
+              <a href="trip-planner.html?dest=Valley+of+Flowers" class="btn btn-primary btn-sm">View →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-banner fade-in">
+      <h2>Ready to Pack Your Bags?</h2>
+      <p>Use TripVerse Trip Planner to turn any suggestion into a full itinerary in seconds.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="trip-planner.html" class="btn btn-white btn-lg">🗓️ Build My Itinerary</a>
+        <a href="travel-explorer.html" class="btn btn-lg" style="border:2px solid rgba(255,255,255,.5);color:#fff;">Explore More →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Curated travel ideas for every mood and budget.</p>
+      </div>
+      <div class="footer-col"><h4>Discover</h4><ul>
+        <li><a href="travel-explorer.html">Travel Explorer</a></li>
+        <li><a href="world-destinations.html">World</a></li>
+        <li><a href="travel-suggestions.html">Suggestions</a></li>
+        <li><a href="trip-planner.html">Trip Planner</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Book Travel</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li>
+        <li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  /* Mood selector */
+  document.querySelectorAll('.mood-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.mood-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      window.showToast && showToast(`Showing ${card.querySelector('.m-label').textContent} travel picks! 🎒`, 'info', 2500);
+    });
+  });
+
+  /* Season filter */
+  document.querySelectorAll('.season-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.season-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const s = card.dataset.season;
+      document.querySelectorAll('.sugg-section[data-season]').forEach(sec => {
+        sec.style.display = (s === 'all' || sec.dataset.season === s || sec.dataset.season === 'all') ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

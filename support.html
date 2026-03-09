@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Support – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html" class="active">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="dashboard.html" class="btn btn-outline btn-sm">My Account</a>
+    <a href="#contact" class="btn btn-primary btn-sm">Contact Us</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <span class="badge badge-orange">Support Center</span>
+    <h1>🆘 How Can We Help?</h1>
+    <p>24/7 support for all TripVerse travelers. We're here every step of your journey.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Support channel cards -->
+    <div class="grid-4 fade-in" style="margin-bottom:56px;">
+      <div class="card text-center" style="cursor:pointer;"
+           onclick="document.getElementById('live-chat-section').scrollIntoView({behavior:'smooth'})">
+        <div style="font-size:2.5rem;margin-bottom:12px;">💬</div>
+        <h3>Live Chat</h3>
+        <p>Chat with TripBot or a human agent in real-time.</p>
+        <span class="badge badge-orange" style="margin-top:12px;">● Online Now</span>
+      </div>
+      <div class="card text-center" style="cursor:pointer;"
+           onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        <div style="font-size:2.5rem;margin-bottom:12px;">📧</div>
+        <h3>Email Support</h3>
+        <p>Send a query and we'll respond within 2 business hours.</p>
+        <span class="badge" style="background:#f3f4f6;color:var(--gray);margin-top:12px;">~2 hr response</span>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2.5rem;margin-bottom:12px;">📞</div>
+        <h3>Call Center</h3>
+        <p>Speak with a travel expert. 6 AM – 11 PM IST daily.</p>
+        <a href="tel:+918001234567" class="btn btn-outline btn-sm" style="margin-top:12px;">1800-123-4567</a>
+      </div>
+      <div class="card text-center" style="cursor:pointer;"
+           onclick="document.getElementById('ticket-section').scrollIntoView({behavior:'smooth'})">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🎫</div>
+        <h3>Support Ticket</h3>
+        <p>Create a tracked ticket for complex or unresolved issues.</p>
+        <span class="badge" style="background:#f3f4f6;color:var(--gray);margin-top:12px;">Tracked resolution</span>
+      </div>
+    </div>
+
+    <div class="grid-2" style="gap:40px;align-items:start;">
+
+      <!-- ── LEFT COLUMN ── -->
+      <div>
+
+        <!-- Live Chat Widget -->
+        <div class="card fade-in" id="live-chat-section" style="margin-bottom:28px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <h3>💬 Live Chat</h3>
+            <span class="badge badge-orange" style="font-size:.72rem;">● Live</span>
+          </div>
+          <p style="margin-bottom:16px;font-size:.88rem;">
+            Chat with TripBot or request a human agent. Average wait: under 1 minute.
+          </p>
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-bubble bot">👋 Hi! I'm TripBot, your TripVerse assistant. How can I help you today?</div>
+            <div class="chat-bubble bot">Ask me about bookings, refunds, pass status, live delays, or anything else!</div>
+          </div>
+          <div class="chat-input-row">
+            <input class="form-control" type="text" id="chat-input" placeholder="Type your message here…" />
+            <button class="btn btn-primary" id="chat-send">Send →</button>
+          </div>
+          <p style="font-size:.75rem;color:var(--gray);margin-top:8px;">
+            Type <strong>"human agent"</strong> to connect with a real person.
+          </p>
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div class="fade-in">
+          <h3 style="margin-bottom:18px;">❓ Frequently Asked Questions</h3>
+
+          <div class="faq-item">
+            <div class="faq-q">How do I get my digital QR bus pass? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a"><p>After completing registration and payment, your QR pass is emailed instantly. You can also view it in your Dashboard under <strong>QR Pass</strong>. Tap it at the bus reader to board — no paper needed.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">How long does a refund take? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a"><p>Refunds are processed within 5–7 business days for cards/net banking. UPI refunds usually credit within 24 hours. Track every step on the <a href="refund.html" style="color:var(--orange);">Refunds page</a>.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">Can I change my travel route after buying a bus pass? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a"><p>One route change is allowed per month for Student and Professional passes. Submit a route change request via your Dashboard and it will be applied within 24 hours.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">My bus pass QR doesn't scan — what do I do? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a"><p>Show the driver your booking confirmation SMS or email. Then contact our support chat immediately — we'll troubleshoot and issue a replacement QR within 1 hour, guaranteed.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">Can I book tickets for someone else? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a"><p>Yes! Enter the passenger's details during booking. The QR pass will carry their name and can be shared directly to their phone via WhatsApp or email.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">Is my payment information secure? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a"><p>Absolutely. TripVerse uses 256-bit SSL encryption and is PCI-DSS Level 1 compliant. We never store card details on our servers. All payments go through certified payment gateways.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">How does the crowd prediction feature work? <span class="faq-arrow">▼</span></div>
+            <div class="faq-a"><p>Our AI model analyzes historical boarding data, time of day, day of week, and local events to predict crowd levels with ~87% accuracy. Plan your trip during off-peak hours for a comfortable seat.</p></div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">I haven't received my booking confirmation email. <span class="faq-arrow">▼</span></div>
+            <div class="faq-a"><p>First, check your spam/junk folder. If it's not there, log in to your <a href="dashboard.html" style="color:var(--orange);">Dashboard</a> — all bookings appear there. You can also resend the confirmation from the trip details screen or contact support.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── RIGHT COLUMN ── -->
+      <div>
+
+        <!-- Contact Form -->
+        <div class="card fade-in" id="contact" style="margin-bottom:28px;border-color:var(--orange);">
+          <h3 style="margin-bottom:6px;">📧 Send Us a Message</h3>
+          <p style="margin-bottom:20px;">We'll respond to your query within 2 business hours.</p>
+          <form data-validate data-success-msg="Message received! We'll reply within 2 hours. ✅">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input class="form-control" type="text" placeholder="Your full name" data-required />
+              <span class="form-error">Name is required</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" placeholder="your@email.com" data-required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone (optional)</label>
+              <input class="form-control" type="tel" placeholder="+91 XXXXX XXXXX" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Booking ID (if applicable)</label>
+              <input class="form-control" type="text" placeholder="TV-2026-XXXX" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Issue Category</label>
+              <select class="form-control">
+                <option>Booking Issue</option>
+                <option>Refund Status</option>
+                <option>Pass Not Received</option>
+                <option>Payment Failed</option>
+                <option>App / Technical Issue</option>
+                <option>Feedback & Suggestion</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Your Message</label>
+              <textarea class="form-control" placeholder="Describe your issue in detail so we can help you faster…" rows="5" data-required></textarea>
+              <span class="form-error">Please describe your issue</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Attachment (optional)</label>
+              <div class="file-upload">
+                <input type="file" accept=".jpg,.jpeg,.png,.pdf" />
+                <div class="file-label">📂 Upload screenshot or document</div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Send Message →</button>
+          </form>
+        </div>
+
+        <!-- Support Ticket Form -->
+        <div class="card fade-in" id="ticket-section">
+          <h3 style="margin-bottom:6px;">🎫 Create a Support Ticket</h3>
+          <p style="margin-bottom:20px;">For issues that need formal tracking and escalation. You'll receive a ticket number and updates by email.</p>
+          <form data-validate data-success-msg="Ticket #TRP-39284 created! You'll receive email updates.">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input class="form-control" type="text" placeholder="Your full name" data-required />
+              <span class="form-error">Name required</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" placeholder="your@email.com" data-required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Priority Level</label>
+              <select class="form-control">
+                <option>Low – General query</option>
+                <option>Medium – Booking issue</option>
+                <option>High – Refund / Payment</option>
+                <option>Urgent – Travel today</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Issue Title</label>
+              <input class="form-control" type="text" placeholder="Brief description of the issue" data-required />
+              <span class="form-error">Issue title required</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Detailed Description</label>
+              <textarea class="form-control" rows="4" placeholder="Describe the problem in detail…" data-required></textarea>
+              <span class="form-error">Description required</span>
+            </div>
+            <button type="submit" class="btn btn-dark btn-full">Create Support Ticket</button>
+          </form>
+
+          <!-- Ticket status check -->
+          <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+            <h4 style="font-size:.95rem;margin-bottom:12px;">Check Existing Ticket</h4>
+            <div style="display:flex;gap:10px;">
+              <input class="form-control" type="text" placeholder="Ticket # e.g. TRP-39284" id="ticket-id-input" />
+              <button class="btn btn-outline" onclick="checkTicket()">Check</button>
+            </div>
+            <div id="ticket-result" style="display:none;margin-top:16px;background:var(--orange-pale);border-radius:10px;padding:14px;font-size:.88rem;">
+              <strong>Ticket #TRP-39284</strong> — Payment not refunded after cancellation<br>
+              <span style="color:var(--orange);font-weight:600;">Status: In Progress</span> · Assigned to: Support Agent Kavita<br>
+              <span style="font-size:.78rem;color:var(--gray);">Last updated: 9 Mar 2026, 10:45 AM</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /right col -->
+    </div>
+
+    <!-- Contact info strip -->
+    <div class="card fade-in" style="margin-top:40px;background:var(--dark);border:none;">
+      <div class="grid-3" style="text-align:center;gap:0;">
+        <div style="padding:20px;border-right:1px solid rgba(255,255,255,.1);">
+          <div style="font-size:1.8rem;margin-bottom:8px;">📧</div>
+          <div style="color:white;font-weight:600;margin-bottom:4px;">Email Us</div>
+          <a href="/cdn-cgi/l/email-protection#e4979194948b9690a490968d949281969781ca8d8a" style="color:var(--orange);font-size:.9rem;"><span class="__cf_email__" data-cfemail="17646267677865635763657e676172656472397e79">[email&#160;protected]</span></a>
+        </div>
+        <div style="padding:20px;border-right:1px solid rgba(255,255,255,.1);">
+          <div style="font-size:1.8rem;margin-bottom:8px;">📞</div>
+          <div style="color:white;font-weight:600;margin-bottom:4px;">Call Us</div>
+          <a href="tel:18001234567" style="color:var(--orange);font-size:.9rem;">1800-123-4567 (Toll Free)</a>
+        </div>
+        <div style="padding:20px;">
+          <div style="font-size:1.8rem;margin-bottom:8px;">🕐</div>
+          <div style="color:white;font-weight:600;margin-bottom:4px;">Support Hours</div>
+          <div style="color:rgba(255,255,255,.6);font-size:.9rem;">Daily 6:00 AM – 11:00 PM IST</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>We're always here to make your travel smoother. Reach out anytime.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li>
+        <li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li>
+        <li><a href="live-status.html">Live Status</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Account</h4><ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="refund.html">Refunds</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd. All rights reserved.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+<script>
+  function checkTicket() {
+    const input = document.getElementById('ticket-id-input');
+    const result = document.g
