@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Destinations – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .world-hero {
+      min-height: 65vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #0a0a1a 0%, #0f172a 50%, #1a0a0f 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 80px 0;
+      text-align: center;
+    }
+    .world-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(255,92,0,.14) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 30%, rgba(100,100,255,.1) 0%, transparent 50%);
+    }
+    /* Floating continent emojis */
+    .float-globe {
+      position: absolute;
+      font-size: 1.8rem;
+      opacity: .15;
+      animation: floatAnim 6s ease-in-out infinite;
+    }
+    @keyframes floatAnim {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-16px) rotate(6deg); }
+    }
+    .world-hero h1 { color: #fff; margin-bottom: 14px; }
+    .world-hero p  { color: rgba(255,255,255,.65); font-size: 1.05rem; max-width: 560px; margin: 0 auto 32px; }
+
+    /* Continent tabs */
+    .continent-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .cont-tab {
+      padding: 9px 22px;
+      border-radius: 10px;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid var(--border);
+      background: var(--white);
+      color: var(--gray);
+      transition: var(--transition);
+    }
+    .cont-tab:hover, .cont-tab.active {
+      background: var(--orange);
+      color: #fff;
+      border-color: var(--orange);
+    }
+
+    /* World destination card — wider image */
+    .world-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--white);
+      transition: var(--transition);
+    }
+    .world-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,.14);
+      border-color: var(--orange);
+    }
+    .world-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+    }
+    .country-flag {
+      position: absolute;
+      top: 12px; left: 12px;
+      font-size: 1.6rem;
+      background: rgba(0,0,0,.4);
+      border-radius: 8px;
+      padding: 4px 8px;
+      backdrop-filter: blur(6px);
+    }
+    .world-rank {
+      position: absolute;
+      bottom: 12px; right: 12px;
+      background: var(--orange);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .world-body { padding: 20px; }
+    .world-country {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 5px;
+    }
+    .world-body h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .world-body p  { font-size: .86rem; margin-bottom: 14px; line-height: 1.55; }
+    .world-meta {
+      display: flex;
+      gap: 12px;
+      font-size: .78rem;
+      color: var(--gray);
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .world-meta span { display: flex; align-items: center; gap: 4px; }
+    .world-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .world-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--orange);
+    }
+    .world-price small { font-size: .72rem; font-weight: 400; color: var(--gray); font-family: 'DM Sans', sans-serif; }
+
+    /* Featured landmark — full width hero card */
+    .landmark-featured {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+      transition: var(--transition);
+    }
+    .landmark-featured:hover { box-shadow: var(--shadow-lg); }
+    .lf-visual {
+      aspect-ratio: auto;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      position: relative;
+    }
+    .lf-body {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--white);
+    }
+    .lf-body h2 { font-size: 1.8rem; margin-bottom: 12px; }
+    .lf-body p  { font-size: .95rem; margin-bottom: 20px; line-height: 1.65; }
+
+    /* Stats strip inside featured card */
+    .lf-stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .lf-stat { font-size: .85rem; }
+    .lf-stat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--orange); }
+
+    /* Region section header */
+    .region-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .region-header h2 { font-size: 1.6rem; }
+    .region-header a  { font-size: .88rem; color: var(--orange); font-weight: 600; }
+
+    @media(max-width:768px) {
+      .landmark-featured { grid-template-columns: 1fr; }
+      .lf-visual { min-height: 200px; }
+      .lf-body { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html" class="active">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="trip-planner.html" class="btn btn-outline btn-sm">Plan Trip</a>
+    <a href="flight.html" class="btn btn-primary btn-sm">Book Flights</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="world-hero">
+  <!-- Floating emojis -->
+  <span class="float-globe" style="top:15%;left:8%;animation-delay:0s;">🗺️</span>
+  <span class="float-globe" style="top:60%;left:3%;animation-delay:1s;">✈️</span>
+  <span class="float-globe" style="top:25%;right:6%;animation-delay:2s;">🌍</span>
+  <span class="float-globe" style="top:70%;right:10%;animation-delay:.5s;">🗼</span>
+  <span class="float-globe" style="top:40%;left:15%;animation-delay:1.5s;">🏝️</span>
+  <span class="float-globe" style="top:50%;right:20%;animation-delay:3s;">🌏</span>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <span class="badge badge-orange" style="margin-bottom:16px;">🌍 World Destinations</span>
+    <h1>Explore the World<br><em style="color:var(--orange);">with TripVerse</em></h1>
+    <p>From the iconic towers of Europe to the ancient wonders of Asia — discover the world's most spectacular destinations and book flights instantly.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="flight.html" class="btn btn-primary btn-lg">✈️ Search International Flights</a>
+      <a href="trip-planner.html" class="btn btn-lg" style="border:2px solid rgba(255,255,255,.3);color:#fff;">Plan My World Trip</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<section class="section">
+  <div class="container">
+
+    <!-- Continent filter -->
+    <div class="continent-tabs fade-in">
+      <button class="cont-tab active" data-continent="all">🌐 All</button>
+      <button class="cont-tab" data-continent="europe">🇪🇺 Europe</button>
+      <button class="cont-tab" data-continent="asia">🌏 Asia</button>
+      <button class="cont-tab" data-continent="americas">🌎 Americas</button>
+      <button class="cont-tab" data-continent="middleeast">🕌 Middle East</button>
+      <button class="cont-tab" data-continent="africa">🌍 Africa</button>
+      <button class="cont-tab" data-continent="oceania">🦘 Oceania</button>
+    </div>
+
+    <!-- ── FEATURED: Eiffel Tower ── -->
+    <div class="landmark-featured fade-in" data-continent="europe">
+      <div class="lf-visual" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);">🗼</div>
+      <div class="lf-body">
+        <span class="badge badge-orange" style="margin-bottom:14px;">🌟 Editor's Pick</span>
+        <div class="world-country">🇫🇷 France</div>
+        <h2>Eiffel Tower, Paris</h2>
+        <p>The iron lattice masterpiece designed by Gustave Eiffel for the 1889 World's Fair. Standing at 330 metres, it remains the world's most visited paid monument, welcoming 7 million visitors a year. The view from the summit at dusk, with the city glowing below, is simply unforgettable.</p>
+        <div class="lf-stats">
+          <div class="lf-stat"><strong>7M+</strong>Annual visitors</div>
+          <div class="lf-stat"><strong>330m</strong>Height</div>
+          <div class="lf-stat"><strong>1889</strong>Built</div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="flight.html" class="btn btn-primary">✈️ Book Flights to Paris</a>
+          <a href="trip-planner.html?dest=Paris" class="btn btn-outline">Plan Paris Trip →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EUROPE ── -->
+    <div id="section-europe" class="fade-in" style="margin-bottom:60px;" data-continent="europe">
+      <div class="region-header">
+        <h2>🇪🇺 Europe</h2>
+        <a href="flight.html">View all flights →</a>
+      </div>
+      <div class="grid-3">
+        <div class="world-card" data-continent="europe">
+          <div class="world-img" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe);">🏛️
+            <span class="country-flag">🇮🇹</span>
+            <span class="world-rank">Top 10 Landmark</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Italy</div>
+            <h3>The Colosseum, Rome</h3>
+            <p>The greatest amphitheatre of the ancient world, where gladiators once fought before 80,000 spectators. A symbol of Roman engineering genius.</p>
+            <div class="world-meta">
+              <span>🕐 Half day</span><span>🌡️ Apr–Jun best</span><span>✈️ ~16h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹55,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="europe">
+          <div class="world-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">🗺️
+            <span class="country-flag">🇬🇧</span>
+            <span class="world-rank">UNESCO Heritage</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">United Kingdom</div>
+            <h3>Stonehenge, England</h3>
+            <p>A prehistoric ring of standing stones on the Wiltshire plains, built around 3000 BCE. Its astronomical alignment and construction mystery captivate millions.</p>
+            <div class="world-meta">
+              <span>🕐 2–3 hours</span><span>🌡️ May–Sep best</span><span>✈️ ~9h from Delhi</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹48,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="europe">
+          <div class="world-img" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8);">🕍
+            <span class="country-flag">🇷🇺</span>
+            <span class="world-rank">Icons of Moscow</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Russia</div>
+            <h3>St. Basil's Cathedral</h3>
+            <p>The iconic onion-domed cathedral on Red Square, commissioned by Ivan the Terrible in 1555. Its vibrant spiraling towers make it the most photographed building in Russia.</p>
+            <div class="world-meta">
+              <span>🕐 1–2 hours</span><span>🌡️ May–Sep best</span><span>✈️ ~7h from Delhi</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹38,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ASIA ── -->
+    <div id="section-asia" class="fade-in" style="margin-bottom:60px;" data-continent="asia">
+      <div class="region-header">
+        <h2>🌏 Asia</h2>
+        <a href="flight.html">View all flights →</a>
+      </div>
+      <div class="grid-3">
+        <div class="world-card" data-continent="asia">
+          <div class="world-img" style="background:linear-gradient(135deg,#dcfce7,#86efac);">🧱
+            <span class="country-flag">🇨🇳</span>
+            <span class="world-rank">New 7 Wonders</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">China</div>
+            <h3>Great Wall of China</h3>
+            <p>Stretching over 21,000 km across northern China, this ancient fortification is one of history's greatest engineering feats. Best sections near Beijing at Mutianyu.</p>
+            <div class="world-meta">
+              <span>🕐 Full day</span><span>🌡️ Apr–Oct best</span><span>✈️ ~7h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹28,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="asia">
+          <div class="world-img" style="background:linear-gradient(135deg,#fef3c7,#fcd34d);">⛩️
+            <span class="country-flag">🇯🇵</span>
+            <span class="world-rank">Must-Visit Asia</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Japan</div>
+            <h3>Mount Fuji & Tokyo</h3>
+            <p>Japan's iconic snow-capped peak, a World Heritage Site, paired with the dazzling energy of Tokyo — temples, skyscrapers, sushi bars, and cherry blossoms.</p>
+            <div class="world-meta">
+              <span>🕐 Multi-day</span><span>🌡️ Mar–May best</span><span>✈️ ~9h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹35,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="asia">
+          <div class="world-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">🌴
+            <span class="country-flag">🇹🇭</span>
+            <span class="world-rank">Top Asian Beach</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Thailand</div>
+            <h3>Bangkok & Phuket</h3>
+            <p>Thailand's electrifying capital with glittering temples and street food, combined with Phuket's turquoise Andaman coast — an unbeatable Southeast Asian combo.</p>
+            <div class="world-meta">
+              <span>🕐 5–7 days</span><span>🌡️ Nov–Apr best</span><span>✈️ ~4h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹16,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MIDDLE EAST ── -->
+    <div id="section-middleeast" class="fade-in" style="margin-bottom:60px;" data-continent="middleeast">
+      <div class="region-header">
+        <h2>🕌 Middle East</h2>
+        <a href="flight.html">View all flights →</a>
+      </div>
+      <div class="grid-3">
+        <div class="world-card" data-continent="middleeast">
+          <div class="world-img" style="background:linear-gradient(135deg,#fef9ee,#fde68a);">🏙️
+            <span class="country-flag">🇦🇪</span>
+            <span class="world-rank">World's Tallest</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">UAE</div>
+            <h3>Burj Khalifa, Dubai</h3>
+            <p>The world's tallest building soaring 828 metres. The observation deck at the 148th floor offers views that stretch to the curvature of the Earth on clear days.</p>
+            <div class="world-meta">
+              <span>🕐 Half day</span><span>🌡️ Oct–Apr best</span><span>✈️ ~3h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹12,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="middleeast">
+          <div class="world-img" style="background:linear-gradient(135deg,#fff1f2,#fecdd3);">🌹
+            <span class="country-flag">🇯🇴</span>
+            <span class="world-rank">New 7 Wonders</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Jordan</div>
+            <h3>Petra, The Rose City</h3>
+            <p>A UNESCO World Heritage Site and New Wonder of the World, Petra is a breathtaking archaeological city carved directly into rose-red cliffs by the Nabataean civilization.</p>
+            <div class="world-meta">
+              <span>🕐 Full day</span><span>🌡️ Mar–May best</span><span>✈️ ~5h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹24,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="middleeast">
+          <div class="world-img" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);">🕌
+            <span class="country-flag">🇸🇦</span>
+            <span class="world-rank">Sacred Pilgrimage</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Saudi Arabia</div>
+            <h3>Masjid al-Haram, Mecca</h3>
+            <p>The holiest mosque in Islam, surrounding the sacred Kaaba. The site of the Hajj pilgrimage, it can accommodate up to 4 million worshippers at peak capacity.</p>
+            <div class="world-meta">
+              <span>🕐 Multi-day</span><span>🌡️ All year</span><span>✈️ ~4h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹18,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AMERICAS ── -->
+    <div id="section-americas" class="fade-in" style="margin-bottom:60px;" data-continent="americas">
+      <div class="region-header">
+        <h2>🌎 Americas</h2>
+        <a href="flight.html">View all flights →</a>
+      </div>
+      <div class="grid-3">
+        <div class="world-card" data-continent="americas">
+          <div class="world-img" style="background:linear-gradient(135deg,#dbeafe,#93c5fd);">🗽
+            <span class="country-flag">🇺🇸</span>
+            <span class="world-rank">Icon of Freedom</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">United States</div>
+            <h3>Statue of Liberty, NYC</h3>
+            <p>A gift from France to the United States in 1886, Lady Liberty stands 93 metres tall on Liberty Island, greeting millions of immigrants and tourists arriving by sea.</p>
+            <div class="world-meta">
+              <span>🕐 Half day</span><span>🌡️ May–Oct best</span><span>✈️ ~16h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹52,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="americas">
+          <div class="world-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">🌿
+            <span class="country-flag">🇧🇷</span>
+            <span class="world-rank">New 7 Wonders</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Brazil</div>
+            <h3>Christ the Redeemer, Rio</h3>
+            <p>Towering 38 metres above Rio de Janeiro's Corcovado mountain, this Art Deco statue is one of the New Seven Wonders of the World and overlooks a breathtaking cityscape.</p>
+            <div class="world-meta">
+              <span>🕐 Half day</span><span>🌡️ Dec–Mar best</span><span>✈️ ~18h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹65,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="americas">
+          <div class="world-img" style="background:linear-gradient(135deg,#fef3c7,#fcd34d);">🏔️
+            <span class="country-flag">🇵🇪</span>
+            <span class="world-rank">Lost City of the Incas</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Peru</div>
+            <h3>Machu Picchu</h3>
+            <p>The 15th-century Inca citadel set high in the Andes mountains. One of the most recognisable and dramatic archaeological sites in the world, a UNESCO World Heritage Site.</p>
+            <div class="world-meta">
+              <span>🕐 Full day</span><span>🌡️ May–Oct best</span><span>✈️ ~22h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹72,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AFRICA & OCEANIA ── -->
+    <div class="fade-in" data-continent="africa">
+      <div class="region-header">
+        <h2>🌍 Africa & 🦘 Oceania</h2>
+        <a href="flight.html">View all flights →</a>
+      </div>
+      <div class="grid-3">
+        <div class="world-card" data-continent="africa">
+          <div class="world-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">🦁
+            <span class="country-flag">🇰🇪</span>
+            <span class="world-rank">Safari Capital</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Kenya</div>
+            <h3>Maasai Mara, Nairobi</h3>
+            <p>Africa's most famous wildlife reserve, home to the spectacular Great Migration of 1.5 million wildebeest. Witness the Big Five in their natural habitat.</p>
+            <div class="world-meta">
+              <span>🕐 3–7 days</span><span>🌡️ Jul–Oct best</span><span>✈️ ~7h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹45,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="africa">
+          <div class="world-img" style="background:linear-gradient(135deg,#e0f2fe,#7dd3fc);">🏔️
+            <span class="country-flag">🇹🇿</span>
+            <span class="world-rank">Roof of Africa</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Tanzania</div>
+            <h3>Mount Kilimanjaro</h3>
+            <p>Africa's highest peak at 5,895 metres. Trekking through five climate zones from rainforest to arctic summit is the bucket-list adventure of a lifetime.</p>
+            <div class="world-meta">
+              <span>🕐 7–9 days trek</span><span>🌡️ Jan–Mar best</span><span>✈️ ~9h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹42,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="world-card" data-continent="oceania">
+          <div class="world-img" style="background:linear-gradient(135deg,#d1fae5,#6ee7b7);">🦘
+            <span class="country-flag">🇦🇺</span>
+            <span class="world-rank">Australian Icon</span>
+          </div>
+          <div class="world-body">
+            <div class="world-country">Australia</div>
+            <h3>Sydney Opera House</h3>
+            <p>The architectural masterpiece on Sydney Harbour, designed by Jørn Utzon, is one of the 20th century's greatest buildings. Its sail-like shells are instantly recognisable.</p>
+            <div class="world-meta">
+              <span>🕐 Half day</span><span>🌡️ Oct–Apr best</span><span>✈️ ~14h from Mumbai</span>
+            </div>
+            <div class="world-card-footer">
+              <div class="world-price">₹58,999 <small>flights from</small></div>
+              <a href="flight.html" class="btn btn-primary btn-sm">Book Flight</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FLIGHT CTA -->
+<section class="section-sm" style="background:linear-gradient(135deg,var(--orange),#ff8c42);">
+  <div class="container text-center">
+    <h2 style="color:#fff;margin-bottom:10px;">The World Is Waiting for You ✈️</h2>
+    <p style="color:rgba(255,255,255,.85);margin-bottom:24px;">Book international flights at the best prices, right here on TripVerse.</p>
+    <a href="flight.html" class="btn btn-white btn-lg">Search International Flights →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Explore the world. Book with confidence.</p>
+      </div>
+      <div class="footer-col"><h4>Discover</h4><ul>
+        <li><a href="travel-explorer.html">Travel Explorer</a></li>
+        <li><a href="world-destinations.html">World Destinations</a></li>
+        <li><a href="travel-suggestions.html">Suggestions</a></li>
+        <li><a href="trip-planner.html">Trip Planner</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Book Travel</h4><ul>
+        <li><a href="flight.html">Flights</a></li>
+        <li><a href="train.html">Trains</a></li>
+        <li><a href="bus.html">Bus Passes</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  /* Continent tab filter */
+  document.querySelectorAll('.cont-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.cont-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const c = tab.dataset.continent;
+      document.querySelectorAll('[data-continent]').forEach(el => {
+        if (el.classList.contains('cont-tab')) return;
+        el.style.display = (c === 'all' || el.dataset.continent === c) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

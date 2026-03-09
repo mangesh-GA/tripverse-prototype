@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Dashboard – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="#" class="btn btn-outline btn-sm">Logout</a>
+    <a href="bus.html" class="btn btn-primary btn-sm">+ Book Travel</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header" style="padding:50px 0 40px;">
+  <div class="container">
+    <h1>👋 Welcome back, Priya!</h1>
+    <p>Manage your passes, trips, and account from your personal travel dashboard.</p>
+  </div>
+</div>
+
+<section style="padding:0 0 60px;">
+  <div class="container">
+    <div class="dashboard-layout">
+
+      <!-- Sidebar -->
+      <aside class="dash-sidebar fade-in">
+        <div class="dash-user">
+          <div class="dash-avatar">👩</div>
+          <strong>Priya Sharma</strong><br>
+          <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96e6e4ffeff7d6f5f9fafaf3f1f3b8f3f2e3">[email&#160;protected]</a></span>
+        </div>
+        <nav class="dash-nav">
+          <a href="#" data-tab="tab-overview" class="active">🏠 Overview</a>
+          <a href="#" data-tab="tab-passes">🎫 My Passes</a>
+          <a href="#" data-tab="tab-trips">✈️ Upcoming Trips</a>
+          <a href="#" data-tab="tab-history">📋 Travel History</a>
+          <a href="#" data-tab="tab-refunds">💸 Refund Requests</a>
+          <a href="#" data-tab="tab-qr">📱 QR Pass</a>
+          <a href="support.html" style="margin-top:16px;">🆘 Get Help</a>
+        </nav>
+      </aside>
+
+      <!-- Main content -->
+      <div class="dash-content">
+
+        <!-- ── OVERVIEW TAB ── -->
+        <div class="dash-panel" id="tab-overview">
+          <!-- Stats row -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+            <div class="dash-widget" style="text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">🎫</div>
+              <div style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--orange);">2</div>
+              <div style="font-size:.85rem;color:var(--gray);">Active Passes</div>
+            </div>
+            <div class="dash-widget" style="text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">✈️</div>
+              <div style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--orange);">3</div>
+              <div style="font-size:.85rem;color:var(--gray);">Upcoming Trips</div>
+            </div>
+            <div class="dash-widget" style="text-align:center;">
+              <div style="font-size:2rem;margin-bottom:8px;">💰</div>
+              <div style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--orange);">₹4,230</div>
+              <div style="font-size:.85rem;color:var(--gray);">Saved This Year</div>
+            </div>
+          </div>
+
+          <!-- QR Pass Quick View -->
+          <div class="qr-pass">
+            <div class="qr-box">🔲</div>
+            <div class="qr-info">
+              <strong>Student Bus Pass – Active</strong>
+              <p>Route: Kothrud ↔ Fergusson College</p>
+              <p>Valid: March 2026 | Tap to board</p>
+              <button class="btn btn-white btn-sm" style="margin-top:12px;" onclick="showToast('QR downloaded!','success')">⬇ Download Pass</button>
+            </div>
+          </div>
+
+          <!-- Recent activity -->
+          <div class="dash-widget">
+            <h3>Recent Activity</h3>
+            <div class="trip-row">
+              <div>
+                <div class="trip-route">🚌 Kothrud → Deccan</div>
+                <div class="trip-meta">Today, 9:05 AM · Bus Route 157</div>
+              </div>
+              <span class="badge badge-orange">Pass Used</span>
+            </div>
+            <div class="trip-row">
+              <div>
+                <div class="trip-route">🚆 Mumbai → Pune</div>
+                <div class="trip-meta">8 Mar 2026 · 12127 Intercity · Sleeper</div>
+              </div>
+              <span class="badge" style="background:#dcfce7;color:#166534;">₹135</span>
+            </div>
+            <div class="trip-row">
+              <div>
+                <div class="trip-route">✈️ Pune → Goa</div>
+                <div class="trip-meta">28 Feb 2026 · GoFirst G8-321 · Economy</div>
+              </div>
+              <span class="badge" style="background:#dcfce7;color:#166534;">₹2,899</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PASSES TAB ── -->
+        <div class="dash-panel hidden" id="tab-passes">
+          <div class="dash-widget">
+            <h3>My Active Passes</h3>
+            <div class="qr-pass" style="margin-bottom:16px;">
+              <div class="qr-box">🔲</div>
+              <div class="qr-info">
+                <strong>Student Bus Pass</strong>
+                <p>Route: Kothrud ↔ Fergusson College</p>
+                <p>Valid until: 31 March 2026</p>
+                <p style="color:#22c55e;font-weight:600;font-size:.85rem;">● ACTIVE</p>
+              </div>
+            </div>
+            <div class="qr-pass">
+              <div class="qr-box" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);color:white;font-size:2.5rem;">🚆</div>
+              <div class="qr-info">
+                <strong>Monthly Season Ticket</strong>
+                <p>Route: Mumbai Local – Western Line</p>
+                <p>Valid until: 31 March 2026</p>
+                <p style="color:#22c55e;font-weight:600;font-size:.85rem;">● ACTIVE</p>
+              </div>
+            </div>
+          </div>
+          <div class="dash-widget">
+            <h3>Expired Passes</h3>
+            <div class="trip-row">
+              <div>
+                <div class="trip-route">🚌 Student Bus Pass</div>
+                <div class="trip-meta">Expired: 28 Feb 2026</div>
+              </div>
+              <a href="bus.html" class="btn btn-outline btn-sm">Renew</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── UPCOMING TRIPS ── -->
+        <div class="dash-panel hidden" id="tab-trips">
+          <div class="dash-widget">
+            <h3>Upcoming Trips</h3>
+            <div class="trip-row">
+              <div>
+                <div class="trip-route">✈️ Pune → Goa</div>
+                <div class="trip-meta">15 Mar 2026 · 07:45 · SpiceJet SG-211 · Economy</div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-outline btn-sm" onclick="showToast('Ticket downloaded!','success')">⬇ Download</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b;" onclick="openModal('modal-cancel')">Cancel</button>
+              </div>
+            </div>
+            <div class="trip-row">
+              <div>
+                <div class="trip-route">🚆 Pune → Mumbai</div>
+                <div class="trip-meta">18 Mar 2026 · 16:00 · Shatabdi · CC Class</div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-outline btn-sm" onclick="showToast('Ticket downloaded!','success')">⬇ Download</button>
+                <button class="btn btn-sm" style="background:#fee2e2;color:#991b1b;" onclick="openModal('modal-cancel')">Cancel</button>
+              </div>
+            </div>
+            <div class="trip-row">
+              <div>
+                <div class="trip-route">🚌 Hinjewadi → Wakad (Daily)</div>
+                <div class="trip-meta">Bus Pass – Monthly | Route 223</div>
+              </div>
+              <span class="badge badge-orange">Pass Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── HISTORY TAB ── -->
+        <div class="dash-panel hidden" id="tab-history">
+          <div class="dash-widget">
+            <h3>Travel History</h3>
+            <div class="trip-row">
+              <div><div class="trip-route">✈️ Pune → Goa</div><div class="trip-meta">28 Feb 2026 · GoFirst G8-321</div></div>
+              <span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--orange);">₹2,899</span>
+            </div>
+            <div class="trip-row">
+              <div><div class="trip-route">🚆 Mumbai → Pune</div><div class="trip-meta">15 Feb 2026 · 12127 Intercity · SL</div></div>
+              <span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--orange);">₹135</span>
+            </div>
+            <div class="trip-row">
+              <div><div class="trip-route">🚌 Kothrud → Deccan × 22</div><div class="trip-meta">Feb 2026 · Student Bus Pass</div></div>
+              <span style="color:#22c55e;font-weight:600;font-size:.85rem;">Pass</span>
+            </div>
+            <div class="trip-row">
+              <div><div class="trip-route">✈️ Delhi → Mumbai</div><div class="trip-meta">5 Jan 2026 · IndiGo 6E-401</div></div>
+              <span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--orange);">₹3,199</span>
+            </div>
+            <div class="trip-row">
+              <div><div class="trip-route">🚆 Pune → Delhi</div><div class="trip-meta">10 Dec 2025 · Rajdhani · 3A</div></div>
+              <span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--orange);">₹1,245</span>
+            </div>
+            <div style="text-align:center;margin-top:16px;">
+              <button class="btn btn-outline btn-sm" onclick="showToast('Travel report downloaded!','success')">⬇ Download Full Report</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── REFUNDS TAB ── -->
+        <div class="dash-panel hidden" id="tab-refunds">
+          <div class="dash-widget">
+            <h3>Refund Requests</h3>
+            <div class="trip-row">
+              <div>
+                <div class="trip-route">✈️ Pune → Mumbai · GoFirst</div>
+                <div class="trip-meta">Requested: 2 Mar 2026 · Amount: ₹2,450</div>
+              </div>
+              <span class="badge" style="background:#fef3c7;color:#92400e;">Processing</span>
+            </div>
+            <div style="margin-top:20px;">
+              <a href="refund.html" class="btn btn-primary">Request New Refund →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── QR TAB ── -->
+        <div class="dash-panel hidden" id="tab-qr">
+          <div class="dash-widget" style="text-align:center;">
+            <h3>Your Digital QR Pass</h3>
+            <p style="margin-bottom:24px;">Show this QR at the bus entrance to board. No paper ticket needed.</p>
+            <div style="width:200px;height:200px;background:var(--dark);border-radius:16px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:6rem;">🔲</div>
+            <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:4px;">TV-2026-PRY-0394</div>
+            <p style="font-size:.85rem;color:var(--gray);">Student Bus Pass · Kothrud ↔ FC Road · Valid 31 Mar 2026</p>
+            <div style="display:flex;gap:12px;justify-content:center;margin-top:20px;">
+              <button class="btn btn-primary" onclick="showToast('QR Pass downloaded!','success')">⬇ Download PNG</button>
+              <button class="btn btn-outline" onclick="showToast('QR Pass shared!','info')">↗ Share Pass</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /dash-content -->
+    </div><!-- /dashboard-layout -->
+  </div>
+</section>
+
+<!-- Cancel trip modal -->
+<div class="modal-overlay" id="modal-cancel">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>❌ Cancel Trip</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <p style="margin-bottom:20px;">Are you sure you want to cancel this booking? The refund will be processed within 5-7 business days.</p>
+    <div style="background:var(--gray-light);border-radius:10px;padding:16px;margin-bottom:20px;font-size:.88rem;">
+      <strong>Booking:</strong> Pune → Goa · 15 Mar 2026<br>
+      <strong>Refund Amount:</strong> ₹2,609 (after 10% cancellation fee)<br>
+      <strong>Cancellation Fee:</strong> ₹290
+    </div>
+    <div style="display:flex;gap:12px;">
+      <button class="btn btn-outline" onclick="closeModal('modal-cancel');showToast('Cancellation aborted','info')">Keep Booking</button>
+      <button class="btn btn-primary" onclick="closeModal('modal-cancel');showToast('Booking cancelled! Refund of ₹2,609 initiated.','success',5000)">Yes, Cancel & Refund</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Your personal travel command center.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li><li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Account</h4><ul>
+        <li><a href="refund.html">Refunds</a></li><li><a href="support.html">Help</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></scr

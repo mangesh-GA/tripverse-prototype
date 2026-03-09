@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refunds & Cancellations – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="dashboard.html" class="btn btn-outline btn-sm">My Account</a>
+    <a href="bus.html" class="btn btn-primary btn-sm">Book Travel</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="badge badge-orange">Refunds</span>
+    <h1>💸 Refunds & Cancellations</h1>
+    <p>Cancel bookings, track refund status, and understand our transparent refund policy.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="grid-2" style="gap:40px;align-items:start;">
+
+      <!-- Left: Cancel + Refund form -->
+      <div>
+        <!-- Cancel Ticket -->
+        <div class="card fade-in" style="margin-bottom:24px;border-color:var(--orange);">
+          <h3 style="margin-bottom:6px;">❌ Cancel a Booking</h3>
+          <p style="margin-bottom:20px;">Enter your booking ID or PNR to initiate cancellation.</p>
+          <form data-validate data-success-msg="Cancellation initiated! Refund will be processed in 5-7 days.">
+            <div class="form-group">
+              <label class="form-label">Booking ID / PNR</label>
+              <input class="form-control" type="text" placeholder="e.g., TV-2026-0394-BUS" data-required />
+              <span class="form-error">Booking ID required</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Registered Email</label>
+              <input class="form-control" type="email" placeholder="Email used during booking" data-required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reason for Cancellation</label>
+              <select class="form-control">
+                <option>Change of plans</option>
+                <option>Medical emergency</option>
+                <option>Flight/train rescheduled</option>
+                <option>Duplicate booking</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Cancel Booking & Request Refund</button>
+          </form>
+        </div>
+
+        <!-- Refund Request Form -->
+        <div class="card fade-in">
+          <h3 style="margin-bottom:6px;">📋 Refund Request Form</h3>
+          <p style="margin-bottom:20px;">Already cancelled? Submit a refund request directly.</p>
+          <form data-validate data-success-msg="Refund request submitted! Ticket #RFD-28833 created.">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input class="form-control" type="text" placeholder="Full name" data-required />
+              <span class="form-error">Name required</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-control" type="email" placeholder="you@email.com" data-required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Booking ID</label>
+              <input class="form-control" type="text" placeholder="TV-2026-XXXX" data-required />
+              <span class="form-error">Booking ID required</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Travel Type</label>
+              <select class="form-control">
+                <option>Bus Pass / Ticket</option>
+                <option>Train Ticket</option>
+                <option>Flight Ticket</option>
+                <option>Tour Package</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Refund Amount Expected (₹)</label>
+              <input class="form-control" type="number" placeholder="e.g., 1450" data-required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Bank Account / UPI for Refund</label>
+              <input class="form-control" type="text" placeholder="UPI ID or A/C details" data-required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Additional Comments</label>
+              <textarea class="form-control" placeholder="Any details that may help process the refund faster..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Upload Supporting Document (optional)</label>
+              <div class="file-upload">
+                <input type="file" accept=".jpg,.jpeg,.png,.pdf" />
+                <div class="file-label">📂 Ticket / Receipt / Medical certificate</div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Submit Refund Request</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right: Status + Policy -->
+      <div>
+        <!-- Refund Tracker -->
+        <div class="card fade-in" style="margin-bottom:24px;">
+          <h3 style="margin-bottom:6px;">📊 Refund Status Tracker</h3>
+          <p style="margin-bottom:4px;font-size:.85rem;color:var(--gray);">Reference: <strong style="color:var(--dark);">#RFD-28791</strong></p>
+          <p style="font-size:.85rem;color:var(--gray);margin-bottom:20px;">Amount: ₹2,609 · Flight PNR: 6E-2341</p>
+
+          <div class="refund-tracker">
+            <div class="refund-step done">
+              <div class="step-circle">✓</div>
+              <div class="step-label">Submitted</div>
+            </div>
+            <div class="refund-step done">
+              <div class="step-circle">✓</div>
+              <div class="step-label">Verified</div>
+            </div>
+            <div class="refund-step active">
+              <div class="step-circle">3</div>
+              <div class="step-label">Processing</div>
+            </div>
+            <div class="refund-step">
+              <div class="step-circle">4</div>
+              <div class="step-label">Credited</div>
+            </div>
+          </div>
+
+          <div style="background:var(--orange-pale);border-radius:10px;padding:14px;font-size:.85rem;margin-bottom:16px;">
+            <strong>📅 Estimated credit date:</strong> 14 March 2026<br>
+            <strong>💳 Refund to:</strong> Original payment method (UPI)
+          </div>
+          <button class="btn btn-primary btn-full refund-btn">Simulate Next Step →</button>
+        </div>
+
+        <!-- Refund Policy -->
+        <div class="card fade-in">
+          <h3 style="margin-bottom:18px;">📜 Refund Policy</h3>
+
+          <div style="margin-bottom:18px;">
+            <h4 style="font-size:.95rem;margin-bottom:8px;display:flex;gap:8px;align-items:center;">
+              <span>🚌</span> Bus Tickets & Passes
+            </h4>
+            <div style="font-size:.88rem;color:var(--gray);padding-left:24px;">
+              <p>• Cancelled 24h+ before travel: <strong style="color:#22c55e;">100% refund</strong></p>
+              <p>• Cancelled 4–24h before: <strong style="color:#f59e0b;">50% refund</strong></p>
+              <p>• Cancelled less than 4h / No-show: <strong style="color:#ef4444;">No refund</strong></p>
+            </div>
+          </div>
+
+          <div style="margin-bottom:18px;">
+            <h4 style="font-size:.95rem;margin-bottom:8px;display:flex;gap:8px;align-items:center;">
+              <span>🚆</span> Train Tickets
+            </h4>
+            <div style="font-size:.88rem;color:var(--gray);padding-left:24px;">
+              <p>• More than 48h before departure: <strong style="color:#22c55e;">Full refund – ₹50 charge</strong></p>
+              <p>• 12–48h before: <strong style="color:#f59e0b;">50% refund</strong></p>
+              <p>• Less than 4h / after departure: <strong style="color:#ef4444;">No refund</strong></p>
+            </div>
+          </div>
+
+          <div style="margin-bottom:18px;">
+            <h4 style="font-size:.95rem;margin-bottom:8px;display:flex;gap:8px;align-items:center;">
+              <span>✈️</span> Flight Tickets
+            </h4>
+            <div style="font-size:.88rem;color:var(--gray);padding-left:24px;">
+              <p>• More than 7 days before: <strong style="color:#22c55e;">Full refund – ₹500 fee</strong></p>
+              <p>• 24h–7 days before: <strong style="color:#f59e0b;">75% refund</strong></p>
+              <p>• Less than 24h: <strong style="color:#ef4444;">Non-refundable</strong></p>
+            </div>
+          </div>
+
+          <div style="background:var(--gray-light);border-radius:10px;padding:14px;font-size:.82rem;color:var(--gray);">
+            💡 Refunds are credited to the original payment method within 5–7 business days. For UPI refunds, credit is typically within 24 hours.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Transparent, fast refunds — always.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li><li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Support</h4><ul>
+        <li><a href="support.html">Help Center</a></li><li><a href="dashboard.html">My Dashboard</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

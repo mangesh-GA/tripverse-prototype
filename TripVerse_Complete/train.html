@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Train Tickets – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html" class="active">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="dashboard.html" class="btn btn-outline btn-sm">Login</a>
+    <a href="#search" class="btn btn-primary btn-sm">Book Train</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <span class="badge badge-orange">Train Services</span>
+    <h1>🚆 Train Tickets & Rail Passes</h1>
+    <p>Search intercity trains, book sleeper berths, check live PNR status — all in one place.</p>
+  </div>
+</div>
+
+<!-- ========== SEARCH BOX ========== -->
+<section class="section-sm" id="search">
+  <div class="container">
+    <div class="flight-search-box fade-in">
+      <h3 style="margin-bottom:20px;">🔍 Search Trains</h3>
+      <div class="flight-form-row" style="grid-template-columns:1fr 1fr 1fr 1fr auto;">
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">From</label>
+          <input class="form-control" value="Mumbai CSMT" placeholder="Origin station" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">To</label>
+          <input class="form-control" value="Pune Junction" placeholder="Destination station" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">Date</label>
+          <input class="form-control" type="date" value="2026-03-10" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">Class</label>
+          <select class="form-control">
+            <option>All Classes</option>
+            <option>Sleeper (SL)</option><option>AC 3 Tier</option>
+            <option>AC 2 Tier</option><option>AC First Class</option>
+            <option>General (GN)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" style="align-self:flex-end;">Search 🔍</button>
+      </div>
+    </div>
+
+    <!-- Train Results -->
+    <div class="fade-in">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <h3>Available Trains – Mumbai → Pune (10 Mar 2026)</h3>
+        <span class="badge badge-orange">12 trains found</span>
+      </div>
+
+      <!-- Train 1 -->
+      <div class="train-result-card">
+        <div class="train-header">
+          <div>
+            <div class="train-number">12127</div>
+            <div class="train-name">Intercity Express</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="status-badge scheduled"><span class="status-dot blue"></span>On Time</span>
+            <button class="btn btn-primary btn-sm" data-modal="modal-train-book">Book Now</button>
+          </div>
+        </div>
+        <div class="train-route">
+          <div>
+            <div class="train-time">06:05</div>
+            <div class="train-station">Mumbai CSMT</div>
+          </div>
+          <div class="train-line"></div>
+          <div style="text-align:center;">
+            <div style="font-size:.8rem;color:var(--gray);">3h 25m</div>
+            <div style="font-size:.75rem;color:var(--orange);">Direct</div>
+          </div>
+          <div class="train-line"></div>
+          <div>
+            <div class="train-time">09:30</div>
+            <div class="train-station">Pune Junction</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;">
+          <span class="seat-class">SL – ₹135</span>
+          <span class="seat-class">3A – ₹380</span>
+          <span class="seat-class">2A – ₹590</span>
+          <span class="seat-class">1A – ₹990</span>
+        </div>
+      </div>
+
+      <!-- Train 2 -->
+      <div class="train-result-card">
+        <div class="train-header">
+          <div>
+            <div class="train-number">12701</div>
+            <div class="train-name">Hussainsagar Express</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="status-badge delayed"><span class="status-dot red"></span>Delayed 15 min</span>
+            <button class="btn btn-primary btn-sm" data-modal="modal-train-book">Book Now</button>
+          </div>
+        </div>
+        <div class="train-route">
+          <div>
+            <div class="train-time">07:15</div>
+            <div class="train-station">Mumbai CSMT</div>
+          </div>
+          <div class="train-line"></div>
+          <div style="text-align:center;">
+            <div style="font-size:.8rem;color:var(--gray);">4h 00m</div>
+            <div style="font-size:.75rem;color:var(--orange);">Direct</div>
+          </div>
+          <div class="train-line"></div>
+          <div>
+            <div class="train-time">11:30</div>
+            <div class="train-station">Pune Junction</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;">
+          <span class="seat-class">SL – ₹145</span>
+          <span class="seat-class">3A – ₹390</span>
+          <span class="seat-class">2A – ₹610</span>
+        </div>
+      </div>
+
+      <!-- Train 3 -->
+      <div class="train-result-card">
+        <div class="train-header">
+          <div>
+            <div class="train-number">11301</div>
+            <div class="train-name">Udayan Express</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="status-badge live"><span class="status-dot green"></span>On Time</span>
+            <button class="btn btn-primary btn-sm" data-modal="modal-train-book">Book Now</button>
+          </div>
+        </div>
+        <div class="train-route">
+          <div>
+            <div class="train-time">09:50</div>
+            <div class="train-station">Mumbai LTT</div>
+          </div>
+          <div class="train-line"></div>
+          <div style="text-align:center;">
+            <div style="font-size:.8rem;color:var(--gray);">3h 45m</div>
+            <div style="font-size:.75rem;color:var(--orange);">Direct</div>
+          </div>
+          <div class="train-line"></div>
+          <div>
+            <div class="train-time">13:35</div>
+            <div class="train-station">Pune Junction</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;">
+          <span class="seat-class">GN – ₹65</span>
+          <span class="seat-class">SL – ₹140</span>
+          <span class="seat-class">3A – ₹395</span>
+          <span class="seat-class">2A – ₹600</span>
+          <span class="seat-class">1A – ₹980</span>
+        </div>
+      </div>
+
+      <!-- Train 4 -->
+      <div class="train-result-card">
+        <div class="train-header">
+          <div>
+            <div class="train-number">12169</div>
+            <div class="train-name">Pragati Express</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="status-badge scheduled"><span class="status-dot blue"></span>Scheduled</span>
+            <button class="btn btn-primary btn-sm" data-modal="modal-train-book">Book Now</button>
+          </div>
+        </div>
+        <div class="train-route">
+          <div>
+            <div class="train-time">15:05</div>
+            <div class="train-station">Mumbai CSMT</div>
+          </div>
+          <div class="train-line"></div>
+          <div style="text-align:center;">
+            <div style="font-size:.8rem;color:var(--gray);">3h 15m</div>
+            <div style="font-size:.75rem;color:var(--orange);">Superfast</div>
+          </div>
+          <div class="train-line"></div>
+          <div>
+            <div class="train-time">18:20</div>
+            <div class="train-station">Pune Junction</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;">
+          <span class="seat-class">CC – ₹245</span>
+          <span class="seat-class">2A – ₹580</span>
+          <span class="seat-class">1A – ₹970</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== RAIL PASSES ========== -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Rail Passes</span>
+      <h2 class="section-title">Special Rail <em class="text-orange">Passes</em></h2>
+    </div>
+    <div class="grid-3 fade-in">
+      <div class="pass-card student">
+        <div style="font-size:2rem;margin-bottom:10px;">🎓</div>
+        <h3>Student Rail Pass</h3>
+        <div class="pass-price"><sup>₹</sup>299<span style="font-size:.9rem;font-weight:400;color:var(--gray)">/month</span></div>
+        <ul>
+          <li>50% discount on all train fares</li>
+          <li>Valid on all Indian Railways</li>
+          <li>Requires valid student ID</li>
+          <li>Booking 60 days in advance</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-train-book">Apply Now</button>
+      </div>
+      <div class="pass-card tourist">
+        <div style="font-size:2rem;margin-bottom:10px;">🌍</div>
+        <h3>Bharat Tourist Pass</h3>
+        <div class="pass-price"><sup>₹</sup>1299<span style="font-size:.9rem;font-weight:400;color:var(--gray)">/15 days</span></div>
+        <ul>
+          <li>Unlimited AC travel across India</li>
+          <li>No reservation charges</li>
+          <li>7, 15, 21-day options</li>
+          <li>Covers 7,000+ stations</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-train-book">Get Tourist Pass</button>
+      </div>
+      <div class="pass-card monthly">
+        <div style="font-size:2rem;margin-bottom:10px;">🚆</div>
+        <h3>Monthly Season Ticket</h3>
+        <div class="pass-price"><sup>₹</sup>649<span style="font-size:.9rem;font-weight:400;color:var(--gray)">/month</span></div>
+        <ul>
+          <li>Unlimited local train travel</li>
+          <li>Fixed origin-destination route</li>
+          <li>First class or second class</li>
+          <li>Digital e-ticket on app</li>
+        </ul>
+        <button class="btn btn-primary btn-full" data-modal="modal-train-book">Get Season Ticket</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PNR STATUS CHECKER -->
+<section class="section">
+  <div class="container">
+    <div class="card fade-in" style="max-width:600px;margin:0 auto;border-color:var(--orange);">
+      <h3 style="margin-bottom:6px;">📋 PNR Status Checker</h3>
+      <p style="margin-bottom:20px;">Enter your PNR number to check reservation and journey status instantly.</p>
+      <div style="display:flex;gap:12px;">
+        <input class="form-control" placeholder="Enter 10-digit PNR number" style="flex:1;" id="pnr-input"/>
+        <button class="btn btn-primary" onclick="checkPNR()">Check Status</button>
+      </div>
+      <div id="pnr-result" style="margin-top:20px;display:none;">
+        <div class="status-card" style="border-color:var(--orange);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+            <strong>PNR: 2345678901</strong>
+            <span class="status-badge live"><span class="status-dot green"></span>Confirmed</span>
+          </div>
+          <p style="font-size:.88rem;color:var(--dark);">12127 Intercity Express | Mumbai CSMT → Pune | 10 Mar 2026</p>
+          <p style="font-size:.88rem;margin-top:6px;">Seat: S4 / 32 | Class: Sleeper | Fare: ₹135</p>
+          <p style="font-size:.82rem;color:var(--orange);margin-top:6px;font-weight:600;">Passenger: CONFIRMED</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Your trusted companion for all rail journeys across India.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li><li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li><li><a href="live-status.html">Live Status</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Support</h4><ul>
+        <li><a href="refund.html">Refunds</a></li><li><a href="support.html">Help Center</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li><li><a href="#">Careers</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Train Booking Modal -->
+<div class="modal-overlay" id="modal-train-book">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🚆 Train Ticket Booking</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <form data-validate data-success-msg="Train ticket booked! Confirmation sent to your email.">
+      <div class="form-group">
+        <label class="form-label">Passenger Name</label>
+        <input class="form-control" type="text" placeholder="Full name as on ID" data-required />
+        <span class="form-error">Name is required</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Age</label>
+        <input class="form-control" type="number" placeholder="Your age" min="1" max="120" data-required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-control" type="email" placeholder="you@email.com" data-required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input class="form-control" type="tel" placeholder="+91 XXXXX XXXXX" data-required />
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">From Station</label>
+          <input class="form-control" value="Mumbai CSMT" data-required />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label class="form-label">To Station</label>
+          <input class="form-control" value="Pune Junction" data-required />
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label class="form-label">Seat Class</label>
+        <select class="form-control">
+          <option>Sleeper (SL) – ₹135</option>
+          <option>AC 3 Tier (3A) – ₹380</option>
+          <option>AC 2 Tier (2A) – ₹590</option>
+          <option>AC First Class (1A) – ₹990</option>
+          <option>General (GN) – ₹65</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Travel Date</label>
+        <input class="form-control" type="date" value="2026-03-10" data-required />
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Proceed to Payment →</button>
+    </form>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal-overlay" id="pay-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>💳 Complete Payment</h3>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="pay-amount-display">
+      <div style="font-size:.85rem;color:var(--gray);margin-bottom:4px;">Amount to Pay</div>
+      <strong>₹380</strong>
+      <div style="font-size:.8rem;color:var(--gray);">12127 Intercity – AC 3 Tier – 10 Mar</div>
+    </div>
+    <div class="pay-method">
+      <div class="pay-option selected"><span class="pay-icon">📱</span><span>UPI / Google Pay</span></div>
+      <div class="pay-option"><span class="pay-icon">💳</span><span>Credit / Debit Card</span></div>
+      <div class="pay-option"><span class="pay-icon">🏦</span><span>Net Banking</span></div>
+      <div class="pay-option"><span class="pay-icon">👝</span><span>TripVerse Wallet</span></div>
+    </div>
+    <button class="btn btn-primary btn-full btn-lg" id="confirm-pay">Pay ₹380 →</button>
+    <p style="text-align:center;font-size:.78rem;margin-top:12px;color:var(--gray);">🔒 256-bit SSL encrypted. Safe & Secure.</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+function checkPNR() {
+  const input = document.getElementById('pnr-input');
+  const result = document.getElementById('pnr-result');
+  if (input.value.length >= 6) {
+    result.style.display = 'block';
+    window.showToast && showToast('PNR status fetched successfully!', 'success');
+  } else {
+    window.showToast && showToast('Please enter a valid PNR number', 'error');
+  }
+}
+</script>
+</body>
+</html>

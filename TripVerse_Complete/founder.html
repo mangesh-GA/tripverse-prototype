@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Founder – TripVerse</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 6px; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--orange), var(--border));
+    }
+    .timeline-item { position: relative; margin-bottom: 32px; }
+    .timeline-dot {
+      position: absolute;
+      left: -28px; top: 6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--orange);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--orange);
+    }
+    .timeline-year {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 4px;
+    }
+    .timeline-title { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 6px; }
+    .timeline-desc  { font-size: .9rem; color: var(--gray); }
+
+    .vision-card {
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      background: linear-gradient(135deg, var(--dark), #2d2d2d);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .vision-card::before {
+      content: '"';
+      position: absolute;
+      top: -20px; left: 24px;
+      font-size: 10rem;
+      font-family: 'Syne', sans-serif;
+      color: rgba(255,92,0,.15);
+      line-height: 1;
+    }
+    .vision-card blockquote {
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: rgba(255,255,255,.9);
+      border-left: none;
+      padding-left: 0;
+      margin: 0 0 20px;
+    }
+    .vision-card cite { font-size: .88rem; color: var(--orange); font-style: normal; font-weight: 600; }
+
+    .mission-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 40px; }
+    .mission-item {
+      background: var(--gray-light);
+      border-radius: var(--radius);
+      padding: 24px;
+      border-left: 4px solid var(--orange);
+    }
+    .mission-item h4 { font-family: 'Syne', sans-serif; margin-bottom: 8px; font-size: 1rem; }
+    .mission-item p  { font-size: .88rem; }
+
+    .press-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .press-item {
+      background: var(--gray-light);
+      border-radius: var(--radius);
+      padding: 18px;
+      text-align: center;
+      font-weight: 600;
+      font-size: .88rem;
+      color: var(--gray);
+      transition: var(--transition);
+    }
+    .press-item:hover { background: var(--orange-pale); color: var(--orange); }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Trip<span>Verse</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="bus.html">Bus</a>
+    <a href="train.html">Train</a>
+    <a href="flight.html">Flights</a>
+    <a href="live-status.html">Live</a>
+    <a href="travel-explorer.html">Explore</a>
+    <a href="world-destinations.html">World</a>
+    <a href="travel-suggestions.html">Suggestions</a>
+    <a href="trip-planner.html">Plan Trip</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="support.html">Support</a>
+    <a href="founder.html" class="active">Founder</a>
+  </div>
+  <div class="nav-cta">
+    <a href="index.html" class="btn btn-outline btn-sm">Back to Home</a>
+    <a href="bus.html" class="btn btn-primary btn-sm">Try TripVerse</a>
+  </div>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header" style="padding:80px 0 70px;">
+  <div class="container">
+    <span class="badge badge-orange">Founder & CEO</span>
+    <h1>The Visionary Behind<br><em style="color:var(--orange);">TripVerse</em></h1>
+    <p>Building India's first truly unified travel platform — one journey at a time.</p>
+  </div>
+</div>
+
+<!-- FOUNDER BIO SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="founder-layout fade-in">
+
+      <!-- Photo panel -->
+      <div>
+        <div class="founder-photo">
+          👨‍💻
+        </div>
+        <div style="margin-top:20px;text-align:center;">
+          <h2 style="font-size:1.8rem;">Mangesh Gaikwad</h2>
+          <p style="color:var(--orange);font-weight:600;margin:4px 0;">Founder & CEO, TripVerse</p>
+          <p style="font-size:.85rem;color:var(--gray);margin-bottom:20px;">Pune, Maharashtra, India 🇮🇳</p>
+          <div class="founder-tag-list" style="justify-content:center;">
+            <span class="founder-tag">🚀 Entrepreneur</span>
+            <span class="founder-tag">💡 Innovator</span>
+            <span class="founder-tag">🧠 Product Builder</span>
+            <span class="founder-tag">🛤️ Travel Tech</span>
+          </div>
+          <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;">
+            <a href="#" class="btn btn-dark btn-sm">LinkedIn →</a>
+            <a href="#" class="btn btn-outline btn-sm">Twitter →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Biography -->
+      <div class="founder-bio">
+        <span class="section-label">The Story</span>
+        <h2 class="section-title">From Frustrated Commuter<br>to <em class="text-orange">Tech Founder</em></h2>
+
+        <p style="margin-bottom:18px;">
+          Mangesh Gaikwad grew up in Pune — a city that thrives on movement. Every morning, millions of students,
+          professionals, and tourists navigate a sprawling web of buses, trains, and flights. But for years, this
+          navigation required three separate apps, physical passes, paper tickets, and countless hours of confusion.
+        </p>
+
+        <p style="margin-bottom:18px;">
+          During his engineering days at Pune University, Mangesh experienced first-hand the frustration of missing a
+          bus because he hadn't bought the right pass, losing money on non-refundable tickets, and having no reliable
+          way to know if his train was delayed. He saw the same problem echoed in thousands of his fellow commuters.
+        </p>
+
+        <blockquote>
+          "Why do I need five apps to travel from my college to the airport? There has to be a better way."
+        </blockquote>
+
+        <p style="margin-bottom:18px;">
+          That question became the seed of TripVerse. In 2024, after two years of building and iterating,
+          Mangesh launched the first version of TripVerse — a unified platform where students could get subsidized
+          digital bus passes, professionals could manage corporate travel, and tourists could hop between modes of
+          transport with a single account.
+        </p>
+
+        <p style="margin-bottom:18px;">
+          The reception was beyond expectations. Within six months, TripVerse had processed over 200,000 bookings
+          across Maharashtra. Word spread through college campuses and corporate offices alike. The platform's
+          real-time crowd prediction feature — Mangesh's personal favourite — became one of the most talked-about
+          innovations in Indian transit technology.
+        </p>
+
+        <p style="margin-bottom:28px;">
+          Today, TripVerse covers 580+ cities, serves 2.4 million monthly travelers, and is on a mission to
+          become the operating system of Indian travel. Mangesh leads a team of 40 engineers, designers, and
+          operations specialists with one shared belief: <strong>smart travel is a fundamental right, not a luxury.</strong>
+        </p>
+
+        <!-- Timeline -->
+        <h3 style="margin-bottom:24px;">📅 The TripVerse Journey</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2022</div>
+            <div class="timeline-title">The Idea is Born</div>
+            <div class="timeline-desc">Mangesh identifies the fragmented state of urban transport apps in India and begins research and user interviews across 5 cities.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2023</div>
+            <div class="timeline-title">First Prototype Built</div>
+            <div class="timeline-desc">A team of 3 engineers builds the first working prototype covering bus passes and train tickets. 500 beta users onboarded at Fergusson College, Pune.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Early 2024</div>
+            <div class="timeline-title">Seed Round Raised</div>
+            <div class="timeline-desc">TripVerse raises ₹2.5 Cr seed funding from angel investors to expand to 10 cities and build the flight booking module.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Mid 2024</div>
+            <div class="timeline-title">Public Launch & 200K Bookings</div>
+            <div class="timeline-desc">Official launch in Mumbai and Pune. Platform processes 200,000 bookings in first 6 months. Live status and crowd prediction features debut.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2025</div>
+            <div class="timeline-title">Series A & National Expansion</div>
+            <div class="timeline-desc">TripVerse closes Series A round and expands to 200+ cities. Corporate pass program launches for enterprise clients. Team grows to 40.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2026</div>
+            <div class="timeline-title">2.4M Monthly Travelers & Growing</div>
+            <div class="timeline-desc">TripVerse now covers 580+ cities, 12,000+ routes, and is India's fastest-growing unified travel platform. International expansion underway.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION QUOTE -->
+<section class="section-sm" style="background:var(--gray-light);">
+  <div class="container">
+    <div class="vision-card fade-in">
+      <blockquote>
+        "India has the world's largest railway network, one of the fastest-growing aviation markets, and
+        hundreds of millions of daily bus commuters. Yet we've never had a single platform that unifies all
+        three. TripVerse exists to change that — to give every Indian traveler the intelligence, convenience,
+        and dignity they deserve, whether they're a student taking the 7 AM bus or a CEO catching a midnight flight."
+      </blockquote>
+      <cite>— Mangesh Gaikwad, Founder & CEO, TripVerse</cite>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION PILLARS -->
+<section class="section">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Mission & Values</span>
+      <h2 class="section-title">What TripVerse <em class="text-orange">Stands For</em></h2>
+    </div>
+    <div class="mission-grid fade-in">
+      <div class="mission-item">
+        <div style="font-size:1.8rem;margin-bottom:10px;">🎯</div>
+        <h4>Radical Simplicity</h4>
+        <p>Every feature exists to reduce friction. If something takes more than 3 taps, we rebuild it from scratch.</p>
+      </div>
+      <div class="mission-item">
+        <div style="font-size:1.8rem;margin-bottom:10px;">🌍</div>
+        <h4>Inclusive Access</h4>
+        <p>From a rural student to a Mumbai executive — TripVerse should work flawlessly for every kind of traveler.</p>
+      </div>
+      <div class="mission-item">
+        <div style="font-size:1.8rem;margin-bottom:10px;">📡</div>
+        <h4>Real Intelligence</h4>
+        <p>Live data, crowd predictions, and proactive alerts. Travel intelligence that actually changes decisions.</p>
+      </div>
+      <div class="mission-item">
+        <div style="font-size:1.8rem;margin-bottom:10px;">🔒</div>
+        <h4>Trust by Default</h4>
+        <p>Transparent refunds, honest pricing, and secure payments. We earn trust by doing the right thing every time.</p>
+      </div>
+      <div class="mission-item">
+        <div style="font-size:1.8rem;margin-bottom:10px;">⚡</div>
+        <h4>Speed Everything</h4>
+        <p>Booking in under 60 seconds. QR pass in under 10 seconds. Refund decision in under 24 hours.</p>
+      </div>
+      <div class="mission-item">
+        <div style="font-size:1.8rem;margin-bottom:10px;">🌱</div>
+        <h4>Sustainable Travel</h4>
+        <p>Promoting public transport reduces individual carbon footprints. Every bus pass is a vote for cleaner cities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTOR SECTION -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">For Investors</span>
+      <h2 class="section-title">An Opportunity in <em class="text-orange">Plain Sight</em></h2>
+      <p class="section-sub">India's $75B travel tech market is still fragmented. TripVerse is building the unified layer.</p>
+    </div>
+    <div class="grid-4 fade-in">
+      <div class="card text-center">
+        <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--orange);">$75B</div>
+        <div style="font-size:.88rem;color:var(--gray);">India Travel Tech Market</div>
+      </div>
+      <div class="card text-center">
+        <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--orange);">500M+</div>
+        <div style="font-size:.88rem;color:var(--gray);">Daily Public Transport Users</div>
+      </div>
+      <div class="card text-center">
+        <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--orange);">22%</div>
+        <div style="font-size:.88rem;color:var(--gray);">Annual Market Growth Rate</div>
+      </div>
+      <div class="card text-center">
+        <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--orange);">3×</div>
+        <div style="font-size:.88rem;color:var(--gray);">Revenue Growth YoY</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:36px;" class="fade-in">
+      <p style="margin-bottom:20px;font-size:1.05rem;">Interested in partnering with or investing in TripVerse?</p>
+      <a href="support.html" class="btn btn-primary btn-lg">📩 Get in Touch →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS / RECOGNITION -->
+<section class="section">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Recognition</span>
+      <h2 class="section-title">TripVerse in the <em class="text-orange">News</em></h2>
+    </div>
+    <div class="press-grid fade-in">
+      <div class="press-item">🗞️ The Hindu<br><span style="font-size:.75rem;">"Most Innovative Startup 2025"</span></div>
+      <div class="press-item">📰 Economic Times<br><span style="font-size:.75rem;">"Top 10 Travel Startups"</span></div>
+      <div class="press-item">💻 YourStory<br><span style="font-size:.75rem;">"Featured Founder 2025"</span></div>
+      <div class="press-item">🏆 Nasscom<br><span style="font-size:.75rem;">"Emerging Tech Award"</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-sm">
+  <div class="container">
+    <div class="cta-banner fade-in">
+      <h2>Ready to Experience TripVerse?</h2>
+      <p>Join 2.4 million travelers who already travel smarter with TripVerse.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="bus.html" class="btn btn-white btn-lg">🚀 Start Booking</a>
+        <a href="index.html" class="btn btn-lg" style="border:2px solid rgba(255,255,255,.5);color:white;">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.6rem;">Trip<span>Verse</span></div>
+        <p>Founded by Mangesh Gaikwad with the vision to unify India's travel experience.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a href="bus.html">Bus Passes</a></li>
+        <li><a href="train.html">Train Tickets</a></li>
+        <li><a href="flight.html">Flights</a></li>
+        <li><a href="live-status.html">Live Status</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Account</h4><ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="refund.html">Refunds</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="support.html">Support</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><a href="founder.html">Our Founder</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Investor Relations</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TripVerse Technologies Pvt. Ltd. All rights reserved.</span>
+      <span>Made with ❤️ by Mangesh Gaikwad</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
